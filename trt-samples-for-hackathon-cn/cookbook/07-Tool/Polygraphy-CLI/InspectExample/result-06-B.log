@@ -1,0 +1,29 @@
+[I] Loading bytes from /home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/07-Tool/Polygraphy-CLI/InspectExample/modelB.onnx
+[I] Loading model: /home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/07-Tool/Polygraphy-CLI/InspectExample/modelB.onnx
+[E] Module: 'onnx_graphsurgeon' version '0.3.12' is installed, but version '>=0.3.27' is required.
+    Please install the required version or set POLYGRAPHY_AUTOINSTALL_DEPS=1 in your environment variables to allow Polygraphy to do so automatically.
+    Attempting to continue with the currently installed version of this module, but note that this may cause errors!
+Traceback (most recent call last):
+  File "/home/fengsc/anaconda3/envs/py37/bin/polygraphy", line 8, in <module>
+    sys.exit(main())
+  File "/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/polygraphy/tools/_main.py", line 70, in main
+    status = selected_tool.run(args)
+  File "/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/polygraphy/tools/base/tool.py", line 171, in run
+    status = self.run_impl(args)
+  File "/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/polygraphy/tools/inspect/subtool/capability.py", line 209, in run_impl
+    supported_subgraphs = partition(nodelists, offset=0)
+  File "/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/polygraphy/tools/inspect/subtool/capability.py", line 201, in partition
+    use_tmp_file=True,
+  File "/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/polygraphy/tools/inspect/subtool/capability.py", line 114, in save_subgraph
+    subgraph = gs.export_onnx(onnx_backend.extract_subgraph(graph, subgraph_inputs, subgraph_outputs))
+  File "/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnx_graphsurgeon/exporters/onnx_exporter.py", line 132, in export_onnx
+    onnx_graph = OnnxExporter.export_graph(graph, do_type_check=do_type_check)
+  File "/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnx_graphsurgeon/exporters/onnx_exporter.py", line 86, in export_graph
+    inputs = [OnnxExporter.export_value_info_proto(inp, do_type_check) for inp in graph.inputs]
+  File "/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnx_graphsurgeon/exporters/onnx_exporter.py", line 86, in <listcomp>
+    inputs = [OnnxExporter.export_value_info_proto(inp, do_type_check) for inp in graph.inputs]
+  File "/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnx_graphsurgeon/exporters/onnx_exporter.py", line 55, in export_value_info_proto
+    onnx_tensor = onnx.helper.make_tensor_value_info(tensor.name, dtype_to_onnx(tensor.dtype), tensor.shape)
+  File "/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnx_graphsurgeon/exporters/onnx_exporter.py", line 28, in dtype_to_onnx
+    return onnx.mapping.NP_TYPE_TO_TENSOR_TYPE[np.dtype(dtype)]
+TypeError: Cannot interpret '1' as a data type

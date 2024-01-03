@@ -1,0 +1,7 @@
+[I] Loading tactic replay file from ./good/
+[I] Loading tactic replay file from ./good/model-00.tactic
+[I] Loaded 1 good tactic replays.
+[I] Loading tactic replay file from ./bad/
+[I] Loading tactic replay file from ./bad/model-00-FP16.tactic
+[I] Loaded 1 bad tactic replays.
+[I] Could not determine potentially bad tactics. Try providing more tactic replay files if possible.

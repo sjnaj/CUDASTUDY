@@ -1,0 +1,133 @@
+&&&& RUNNING TensorRT.trtexec [TensorRT v8501] # trtexec --onnx=modelA.onnx --buildOnly --profilingVerbosity=detailed --dumpLayerInfo --exportLayerInfo=./model-04-exportLayerInfo.log
+[01/02/2024-22:53:20] [I] === Model Options ===
+[01/02/2024-22:53:20] [I] Format: ONNX
+[01/02/2024-22:53:20] [I] Model: modelA.onnx
+[01/02/2024-22:53:20] [I] Output:
+[01/02/2024-22:53:20] [I] === Build Options ===
+[01/02/2024-22:53:20] [I] Max batch: explicit batch
+[01/02/2024-22:53:20] [I] Memory Pools: workspace: default, dlaSRAM: default, dlaLocalDRAM: default, dlaGlobalDRAM: default
+[01/02/2024-22:53:20] [I] minTiming: 1
+[01/02/2024-22:53:20] [I] avgTiming: 8
+[01/02/2024-22:53:20] [I] Precision: FP32
+[01/02/2024-22:53:20] [I] LayerPrecisions: 
+[01/02/2024-22:53:20] [I] Calibration: 
+[01/02/2024-22:53:20] [I] Refit: Disabled
+[01/02/2024-22:53:20] [I] Sparsity: Disabled
+[01/02/2024-22:53:20] [I] Safe mode: Disabled
+[01/02/2024-22:53:20] [I] DirectIO mode: Disabled
+[01/02/2024-22:53:20] [I] Restricted mode: Disabled
+[01/02/2024-22:53:20] [I] Build only: Enabled
+[01/02/2024-22:53:20] [I] Save engine: 
+[01/02/2024-22:53:20] [I] Load engine: 
+[01/02/2024-22:53:20] [I] Profiling verbosity: 2
+[01/02/2024-22:53:20] [I] Tactic sources: Using default tactic sources
+[01/02/2024-22:53:20] [I] timingCacheMode: local
+[01/02/2024-22:53:20] [I] timingCacheFile: 
+[01/02/2024-22:53:20] [I] Heuristic: Disabled
+[01/02/2024-22:53:20] [I] Preview Features: Use default preview flags.
+[01/02/2024-22:53:20] [I] Input(s)s format: fp32:CHW
+[01/02/2024-22:53:20] [I] Output(s)s format: fp32:CHW
+[01/02/2024-22:53:20] [I] Input build shapes: model
+[01/02/2024-22:53:20] [I] Input calibration shapes: model
+[01/02/2024-22:53:20] [I] === System Options ===
+[01/02/2024-22:53:20] [I] Device: 0
+[01/02/2024-22:53:20] [I] DLACore: 
+[01/02/2024-22:53:20] [I] Plugins:
+[01/02/2024-22:53:20] [I] === Inference Options ===
+[01/02/2024-22:53:20] [I] Batch: Explicit
+[01/02/2024-22:53:20] [I] Input inference shapes: model
+[01/02/2024-22:53:20] [I] Iterations: 10
+[01/02/2024-22:53:20] [I] Duration: 3s (+ 200ms warm up)
+[01/02/2024-22:53:20] [I] Sleep time: 0ms
+[01/02/2024-22:53:20] [I] Idle time: 0ms
+[01/02/2024-22:53:20] [I] Streams: 1
+[01/02/2024-22:53:20] [I] ExposeDMA: Disabled
+[01/02/2024-22:53:20] [I] Data transfers: Enabled
+[01/02/2024-22:53:20] [I] Spin-wait: Disabled
+[01/02/2024-22:53:20] [I] Multithreading: Disabled
+[01/02/2024-22:53:20] [I] CUDA Graph: Disabled
+[01/02/2024-22:53:20] [I] Separate profiling: Disabled
+[01/02/2024-22:53:20] [I] Time Deserialize: Disabled
+[01/02/2024-22:53:20] [I] Time Refit: Disabled
+[01/02/2024-22:53:20] [I] NVTX verbosity: 2
+[01/02/2024-22:53:20] [I] Persistent Cache Ratio: 0
+[01/02/2024-22:53:20] [I] Inputs:
+[01/02/2024-22:53:20] [I] === Reporting Options ===
+[01/02/2024-22:53:20] [I] Verbose: Disabled
+[01/02/2024-22:53:20] [I] Averages: 10 inferences
+[01/02/2024-22:53:20] [I] Percentiles: 90,95,99
+[01/02/2024-22:53:20] [I] Dump refittable layers:Disabled
+[01/02/2024-22:53:20] [I] Dump output: Disabled
+[01/02/2024-22:53:20] [I] Profile: Disabled
+[01/02/2024-22:53:20] [I] Export timing to JSON file: 
+[01/02/2024-22:53:20] [I] Export output to JSON file: 
+[01/02/2024-22:53:20] [I] Export profile to JSON file: 
+[01/02/2024-22:53:20] [I] 
+[01/02/2024-22:53:21] [I] === Device Information ===
+[01/02/2024-22:53:21] [I] Selected Device: NVIDIA GeForce MX350
+[01/02/2024-22:53:21] [I] Compute Capability: 6.1
+[01/02/2024-22:53:21] [I] SMs: 5
+[01/02/2024-22:53:21] [I] Compute Clock Rate: 1.468 GHz
+[01/02/2024-22:53:21] [I] Device Global Memory: 2047 MiB
+[01/02/2024-22:53:21] [I] Shared Memory per SM: 96 KiB
+[01/02/2024-22:53:21] [I] Memory Bus Width: 64 bits (ECC disabled)
+[01/02/2024-22:53:21] [I] Memory Clock Rate: 3.504 GHz
+[01/02/2024-22:53:21] [I] 
+[01/02/2024-22:53:21] [I] TensorRT version: 8.5.1
+[01/02/2024-22:53:21] [I] [TRT] [MemUsageChange] Init CUDA: CPU +9, GPU +0, now: CPU 21, GPU 405 (MiB)
+[01/02/2024-22:53:27] [I] [TRT] [MemUsageChange] Init builder kernel library: CPU +122, GPU +22, now: CPU 197, GPU 427 (MiB)
+[01/02/2024-22:53:27] [I] Start parsing network model
+[01/02/2024-22:53:27] [I] [TRT] ----------------------------------------------------------------
+[01/02/2024-22:53:27] [I] [TRT] Input filename:   modelA.onnx
+[01/02/2024-22:53:27] [I] [TRT] ONNX IR version:  0.0.9
+[01/02/2024-22:53:27] [I] [TRT] Opset version:    11
+[01/02/2024-22:53:27] [I] [TRT] Producer name:    
+[01/02/2024-22:53:27] [I] [TRT] Producer version: 
+[01/02/2024-22:53:27] [I] [TRT] Domain:           
+[01/02/2024-22:53:27] [I] [TRT] Model version:    0
+[01/02/2024-22:53:27] [I] [TRT] Doc string:       
+[01/02/2024-22:53:27] [I] [TRT] ----------------------------------------------------------------
+[01/02/2024-22:53:27] [W] [TRT] onnx2trt_utils.cpp:377: Your ONNX model has been generated with INT64 weights, while TensorRT does not natively support INT64. Attempting to cast down to INT32.
+[01/02/2024-22:53:27] [W] [TRT] Tensor DataType is determined at build time for tensors not marked as input or output.
+[01/02/2024-22:53:27] [I] Finish parsing network model
+[01/02/2024-22:53:27] [W] Dynamic dimensions required for input: tensorX, but no shapes were provided. Automatically overriding shape to: 1x1x28x28
+[01/02/2024-22:53:28] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +270, GPU +112, now: CPU 492, GPU 539 (MiB)
+[01/02/2024-22:53:28] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +2, GPU +8, now: CPU 494, GPU 547 (MiB)
+[01/02/2024-22:53:28] [I] [TRT] Local timing cache in use. Profiling results in this builder pass will not be stored.
+[01/02/2024-22:53:36] [I] [TRT] Total Activation Memory: 2147559424
+[01/02/2024-22:53:36] [I] [TRT] Detected 1 inputs and 2 output network tensors.
+[01/02/2024-22:53:36] [I] [TRT] Total Host Persistent Memory: 6928
+[01/02/2024-22:53:36] [I] [TRT] Total Device Persistent Memory: 5120
+[01/02/2024-22:53:36] [I] [TRT] Total Scratch Memory: 0
+[01/02/2024-22:53:36] [I] [TRT] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 24 MiB, GPU 430 MiB
+[01/02/2024-22:53:36] [I] [TRT] [BlockAssignment] Started assigning block shifts. This will take 9 steps to complete.
+[01/02/2024-22:53:36] [I] [TRT] [BlockAssignment] Algorithm ShiftNTopDown took 0.0533ms to assign 2 blocks to 9 nodes requiring 125440 bytes.
+[01/02/2024-22:53:36] [I] [TRT] Total Activation Memory: 125440
+[01/02/2024-22:53:36] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +1, GPU +8, now: CPU 570, GPU 569 (MiB)
+[01/02/2024-22:53:36] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +10, now: CPU 570, GPU 579 (MiB)
+[01/02/2024-22:53:36] [I] [TRT] [MemUsageChange] TensorRT-managed allocation in building engine: CPU +12, GPU +13, now: CPU 12, GPU 13 (MiB)
+[01/02/2024-22:53:36] [I] Engine built in 15.2548 sec.
+[01/02/2024-22:53:36] [I] [TRT] Loaded engine size: 12 MiB
+[01/02/2024-22:53:36] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +10, now: CPU 570, GPU 555 (MiB)
+[01/02/2024-22:53:36] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 570, GPU 563 (MiB)
+[01/02/2024-22:53:36] [I] [TRT] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +12, now: CPU 0, GPU 12 (MiB)
+[01/02/2024-22:53:36] [I] Engine deserialized in 0.0341486 sec.
+[01/02/2024-22:53:36] [I] Layer Information:
+[01/02/2024-22:53:36] [I] Layers:
+Name: A-N-0-Conv + A-N-1-Relu, LayerType: CaskConvolution, Inputs: [ { Name: tensorX, Location: Device, Dimensions: [1,1,28,28], Format/Datatype: Row major linear FP32 }], Outputs: [ { Name: A-V-1-Relu, Location: Device, Dimensions: [1,32,28,28], Format/Datatype: Row major linear FP32 }], ParameterType: Convolution, Kernel: [5,5], PaddingMode: kEXPLICIT_ROUND_DOWN, PrePadding: [2,2], PostPadding: [2,2], Stride: [1,1], Dilation: [1,1], OutMaps: 32, Groups: 1, Weights: {"Type": "Float", "Count": 800}, Bias: {"Type": "Float", "Count": 32}, HasSparseWeights: 0, HasDynamicFilter: 0, HasDynamicBias: 0, HasResidual: 0, ConvXAsActInputIdx: -1, BiasAsActInputIdx: -1, ResAsActInputIdx: -1, Activation: RELU, HasBias: 1, HasReLU: 1, TacticName: maxwell_scudnn_128x32_relu_small_nn_v0, TacticValue: 0x632674f65e3422ae
+Name: A-N-2-MaxPool, LayerType: CaskPooling, Inputs: [ { Name: A-V-1-Relu, Location: Device, Dimensions: [1,32,28,28], Format/Datatype: Row major linear FP32 }], Outputs: [ { Name: A-V-2-MaxPool, Location: Device, Dimensions: [1,32,14,14], Format/Datatype: Row major linear FP32 }], ParameterType: Pooling, PoolingType: MAX, WindowSize: [2,2], PaddingMode: kEXPLICIT_ROUND_DOWN, PrePadding: [0,0], PostPadding: [0,0], Stride: [2,2], BlendFactor: 0, AverageCountExcludesPadding: 1, TacticName: sm50_xmma_pooling_tiled_FP32NCHW_kMAX_tP2_tQ16_tR2_tS2_tU2_tV2_tUnroll8_tThreads128, TacticValue: 0x2802f161f2fbd8fa
+Name: A-N-3-Conv + A-N-4-Relu, LayerType: FusedConvActConvolution, Inputs: [ { Name: A-V-2-MaxPool, Location: Device, Dimensions: [1,32,14,14], Format/Datatype: Row major linear FP32 }], Outputs: [ { Name: A-V-4-Relu, Location: Device, Dimensions: [1,64,14,14], Format/Datatype: Row major linear FP32 }], ParameterType: Convolution, Kernel: [5,5], PaddingMode: kEXPLICIT_ROUND_DOWN, PrePadding: [2,2], PostPadding: [2,2], Stride: [1,1], Dilation: [1,1], OutMaps: 64, Groups: 1, Weights: {"Type": "Float", "Count": 51200}, Bias: {"Type": "Float", "Count": 64}, HasSparseWeights: 0, HasDynamicFilter: 0, HasDynamicBias: 0, HasResidual: 0, ConvXAsActInputIdx: -1, BiasAsActInputIdx: -1, ResAsActInputIdx: -1, Activation: RELU, HasBias: 1, ConvolutionTacticIndex: 161, TacticValue: 0x0000000000a1ffff
+Name: A-N-5-MaxPool, LayerType: CaskPooling, Inputs: [ { Name: A-V-4-Relu, Location: Device, Dimensions: [1,64,14,14], Format/Datatype: Row major linear FP32 }], Outputs: [ { Name: A-V-5-MaxPool, Location: Device, Dimensions: [1,64,7,7], Format/Datatype: Row major linear FP32 }], ParameterType: Pooling, PoolingType: MAX, WindowSize: [2,2], PaddingMode: kEXPLICIT_ROUND_DOWN, PrePadding: [0,0], PostPadding: [0,0], Stride: [2,2], BlendFactor: 0, AverageCountExcludesPadding: 1, TacticName: sm50_xmma_pooling_tiled_FP32NCHW_kMAX_tP2_tQ16_tR2_tS2_tU2_tV2_tUnroll8_tThreads128, TacticValue: 0x2802f161f2fbd8fa
+Name: A-N-6-Transpose + A-N-7-Reshape + reshape_before_A-N-8-MatMul, LayerType: Shuffle, Inputs: [ { Name: A-V-5-MaxPool, Location: Device, Dimensions: [1,64,7,7], Format/Datatype: Row major linear FP32 }], Outputs: [ { Name: reshape_before_A-N-8-MatMul_out_tensor, Location: Device, Dimensions: [1,3136,1,1], Format/Datatype: Row major linear FP32 }], ParameterType: Shuffle, FirstTranspose: [0,2,3,1], Reshape: [1,3136,1,1], SecondTranspose: [0,1,2,3], ZeroIsPlaceholder: 0, TacticValue: 0x0000000000000000
+Name: A-N-8-MatMul + A-N-10-Relu, LayerType: CublasConvolution, Inputs: [ { Name: reshape_before_A-N-8-MatMul_out_tensor, Location: Device, Dimensions: [1,3136,1,1], Format/Datatype: Row major linear FP32 }], Outputs: [ { Name: A-N-10-Relu_out_tensor, Location: Device, Dimensions: [1,1024,1,1], Format/Datatype: Row major linear FP32 }], ParameterType: Convolution, Kernel: [1,1], PaddingMode: kEXPLICIT_ROUND_DOWN, PrePadding: [0,0], PostPadding: [0,0], Stride: [1,1], Dilation: [1,1], OutMaps: 1024, Groups: 1, Weights: {"Type": "Float", "Count": 3211264}, Bias: {"Type": "Float", "Count": 1024}, HasSparseWeights: 0, HasDynamicFilter: 0, HasDynamicBias: 0, HasResidual: 0, ConvXAsActInputIdx: -1, BiasAsActInputIdx: -1, ResAsActInputIdx: -1, Activation: RELU, HasBias: 1, CublasConvolutionTacticIndex: 1, TacticValue: 0x0000000000000001
+Name: A-N-11-MatMul, LayerType: CudnnConvolution, Inputs: [ { Name: A-N-10-Relu_out_tensor, Location: Device, Dimensions: [1,1024,1,1], Format/Datatype: Row major linear FP32 }], Outputs: [ { Name: A-N-11-MatMul_out_tensor, Location: Device, Dimensions: [1,10,1,1], Format/Datatype: Row major linear FP32 }], ParameterType: Convolution, Kernel: [1,1], PaddingMode: kEXPLICIT_ROUND_DOWN, PrePadding: [0,0], PostPadding: [0,0], Stride: [1,1], Dilation: [1,1], OutMaps: 10, Groups: 1, Weights: {"Type": "Float", "Count": 10240}, Bias: {"Type": "Float", "Count": 10}, HasSparseWeights: 0, HasDynamicFilter: 0, HasDynamicBias: 0, HasResidual: 0, ConvXAsActInputIdx: -1, BiasAsActInputIdx: -1, ResAsActInputIdx: -1, Activation: NONE, HasBias: 1, TacticValue: 0x0000000000000001
+Name: reshape_after_A-N-11-MatMul, LayerType: NoOp, Inputs: [ { Name: A-N-11-MatMul_out_tensor, Location: Device, Dimensions: [1,10,1,1], Format/Datatype: Row major linear FP32 }], Outputs: [ { Name: A-V-12-Add, Location: Device, Dimensions: [1,10], Format/Datatype: Row major linear FP32 }], TacticValue: 0x0000000000000000
+Name: A-N-13-Softmax + A-N-14-ArgMax, LayerType: LogSoftmaxTopK, Inputs: [ { Name: A-V-12-Add, Location: Device, Dimensions: [1,10], Format/Datatype: Row major linear FP32 }], Outputs: [ { Name: (Unnamed Layer* 28) [TopK]_output_1, Location: Device, Dimensions: [1,1], Format/Datatype: Row major linear FP32 }, { Name: (Unnamed Layer* 28) [TopK]_output_2, Location: Device, Dimensions: [1,1], Format/Datatype: Row major linear Int32 }], ParameterType: LogSoftmaxTopK, Operation: MAX, TopK: 1, HasLog: 0, TacticValue: 0x00000000000003e9
+Name: (Unnamed Layer* 32) [Shuffle], LayerType: NoOp, Inputs: [ { Name: (Unnamed Layer* 28) [TopK]_output_2, Location: Device, Dimensions: [1,1], Format/Datatype: Row major linear Int32 }], Outputs: [ { Name: A-V-14-ArgMax, Location: Device, Dimensions: [1], Format/Datatype: Row major linear Int32 }], TacticValue: 0x0000000000000000
+
+Bindings:
+tensorX
+A-V-12-Add
+A-V-14-ArgMax
+[01/02/2024-22:53:36] [I] Skipped inference phase since --buildOnly is added.
+&&&& PASSED TensorRT.trtexec [TensorRT v8501] # trtexec --onnx=modelA.onnx --buildOnly --profilingVerbosity=detailed --dumpLayerInfo --exportLayerInfo=./model-04-exportLayerInfo.log

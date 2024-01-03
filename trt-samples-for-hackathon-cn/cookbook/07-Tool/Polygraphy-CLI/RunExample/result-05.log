@@ -1,0 +1,202 @@
+[I] RUNNING | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy run modelA.onnx --onnxrt --trt --save-engine=model-04.plan --onnx-outputs A-V-2-MaxPool A-V-5-MaxPool --trt-outputs A-V-2-MaxPool A-V-5-MaxPool --trt-min-shapes tensorX:[1,1,28,28] --trt-opt-shapes tensorX:[4,1,28,28] --trt-max-shapes tensorX:[16,1,28,28] --input-shapes tensorX:[4,1,28,28] --atol 1e-3 --rtol 1e-3 --verbose
+[V] Loaded Module: polygraphy | Version: 0.49.0 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/polygraphy']
+[V] Loaded extension modules: []
+[I] Will generate inference input data according to provided TensorMetadata: {tensorX [shape=(4, 1, 28, 28)]}
+[I] onnxrt-runner-N0-01/03/24-11:25:54  | Activating and starting inference
+[I] Loading model: /home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/07-Tool/Polygraphy-CLI/RunExample/modelA.onnx
+[V] Loaded Module: onnx | Version: 1.14.1 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnx']
+[V] Loaded Module: onnxruntime | Version: 1.13.1 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnxruntime']
+[I] Creating ONNX-Runtime Inference Session with providers: ['CPUExecutionProvider']
+[V] Loading inputs from data loader
+[V] Generating data using numpy seed: 1
+[V] Loaded Module: numpy | Version: 1.21.6 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/numpy']
+[V] Input tensor: tensorX | Generating input data in range: [0.0, 1.0]
+[V] Loaded Module: torch | Version: 1.13.0 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/torch']
+[I] onnxrt-runner-N0-01/03/24-11:25:54 
+    ---- Inference Input(s) ----
+    {tensorX [dtype=float32, shape=(4, 1, 28, 28)]}
+[V] onnxrt-runner-N0-01/03/24-11:25:54  | Input metadata is: {tensorX [dtype=float32, shape=('B', 1, 28, 28)]}
+[I] onnxrt-runner-N0-01/03/24-11:25:54 
+    ---- Inference Output(s) ----
+    {A-V-2-MaxPool [dtype=float32, shape=(4, 32, 14, 14)],
+     A-V-5-MaxPool [dtype=float32, shape=(4, 64, 7, 7)]}
+[I] onnxrt-runner-N0-01/03/24-11:25:54  | Completed 1 iteration(s) in 1.344 ms | Average inference time: 1.344 ms.
+[I] trt-runner-N0-01/03/24-11:25:54     | Activating and starting inference
+[V] Loaded Module: tensorrt | Version: 8.5.1.7 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/tensorrt']
+[V] [MemUsageChange] Init CUDA: CPU +204, GPU +0, now: CPU 292, GPU 481 (MiB)
+[V] [MemUsageChange] Init builder kernel library: CPU +121, GPU +22, now: CPU 467, GPU 503 (MiB)
+[W] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage. See `CUDA_MODULE_LOADING` in https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#env-vars
+[V] ----------------------------------------------------------------
+[V] Input filename:   /home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/07-Tool/Polygraphy-CLI/RunExample/modelA.onnx
+[V] ONNX IR version:  0.0.8
+[V] Opset version:    11
+[V] Producer name:    
+[V] Producer version: 
+[V] Domain:           
+[V] Model version:    0
+[V] Doc string:       
+[V] ----------------------------------------------------------------
+[W] onnx2trt_utils.cpp:377: Your ONNX model has been generated with INT64 weights, while TensorRT does not natively support INT64. Attempting to cast down to INT32.
+[W] Tensor DataType is determined at build time for tensors not marked as input or output.
+[V] Executing postprocessing step [ModifyNetworkOutputs]
+[V] Setting TensorRT Optimization Profiles
+[V] Input tensor: tensorX (dtype=DataType.FLOAT, shape=(-1, 1, 28, 28)) | Setting input tensor shapes to: (min=[1, 1, 28, 28], opt=[4, 1, 28, 28], max=[16, 1, 28, 28])
+[I] Configuring with profiles:[
+        Profile 0:
+            {tensorX [min=[1, 1, 28, 28], opt=[4, 1, 28, 28], max=[16, 1, 28, 28]]}
+    ]
+[I] Building engine with configuration:
+    Flags                  | []
+    Engine Capability      | EngineCapability.DEFAULT
+    Memory Pools           | [WORKSPACE: 2047.88 MiB]
+    Tactic Sources         | [CUBLAS, CUBLAS_LT, CUDNN, EDGE_MASK_CONVOLUTIONS, JIT_CONVOLUTIONS]
+    Profiling Verbosity    | ProfilingVerbosity.DETAILED
+[V] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +256, GPU +106, now: CPU 736, GPU 609 (MiB)
+[V] [MemUsageChange] Init cuDNN: CPU +113, GPU +46, now: CPU 849, GPU 655 (MiB)
+[W] TensorRT was linked against cuDNN 8.6.0 but loaded cuDNN 8.5.0
+[V] Global timing cache in use. Profiling results in this builder pass will be stored.
+[V] Total Activation Memory: 2150363648
+[V] Detected 1 inputs and 2 output network tensors.
+[V] Total Host Persistent Memory: 6080
+[V] Total Device Persistent Memory: 6656
+[V] Total Scratch Memory: 0
+[V] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 0 MiB, GPU 23 MiB
+[V] [BlockAssignment] Started assigning block shifts. This will take 5 steps to complete.
+[V] [BlockAssignment] Algorithm ShiftNTopDown took 0.047ms to assign 3 blocks to 5 nodes requiring 2007552 bytes.
+[V] Total Activation Memory: 2007552
+[V] [MemUsageChange] TensorRT-managed allocation in building engine: CPU +0, GPU +4, now: CPU 0, GPU 4 (MiB)
+[I] Finished engine building in 1.853 seconds
+[V] Loaded engine size: 0 MiB
+[V] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +0, now: CPU 0, GPU 0 (MiB)
+[V] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +2, now: CPU 0, GPU 2 (MiB)
+[V] Found candidate CUDA libraries: ['/usr/local/cuda/lib64/libcudart.so.11.7.60', '/usr/local/cuda/lib64/libcudart.so.11.0', '/usr/local/cuda/lib64/libcudart.so']
+[I] trt-runner-N0-01/03/24-11:25:54    
+    ---- Inference Input(s) ----
+    {tensorX [dtype=float32, shape=(4, 1, 28, 28)]}
+[V] trt-runner-N0-01/03/24-11:25:54     | Input metadata is: {tensorX [dtype=float32, shape=(-1, 1, 28, 28)]}
+[I] trt-runner-N0-01/03/24-11:25:54    
+    ---- Inference Output(s) ----
+    {A-V-2-MaxPool [dtype=float32, shape=(4, 32, 14, 14)],
+     A-V-5-MaxPool [dtype=float32, shape=(4, 64, 7, 7)]}
+[I] trt-runner-N0-01/03/24-11:25:54     | Completed 1 iteration(s) in 1.385 ms | Average inference time: 1.385 ms.
+[V] Successfully ran: ['onnxrt-runner-N0-01/03/24-11:25:54', 'trt-runner-N0-01/03/24-11:25:54']
+[I] Accuracy Comparison | onnxrt-runner-N0-01/03/24-11:25:54 vs. trt-runner-N0-01/03/24-11:25:54
+[I]     Comparing Output: 'A-V-2-MaxPool' (dtype=float32, shape=(4, 32, 14, 14)) with 'A-V-2-MaxPool' (dtype=float32, shape=(4, 32, 14, 14))
+[I]         Tolerance: [abs=0.001, rel=0.001] | Checking elemwise error
+[W]         trt-runner-N0-01/03/24-11:25:54     | Output: A-V-2-MaxPool: Some values are 0. Will add a small epsilon quantity to these when computing relative difference. Note that this may cause some relative differences to be extremely high. 
+[I]         onnxrt-runner-N0-01/03/24-11:25:54: A-V-2-MaxPool | Stats: mean=1.0782, std-dev=1.0859, var=1.1791, median=0.83998, min=0 at (0, 0, 0, 4), max=6.6539 at (0, 10, 1, 11), avg-magnitude=1.0782
+[V]             ---- Histogram ----
+                Bin Range      |  Num Elems | Visualization
+                (0    , 0.665) |      10959 | ########################################
+                (0.665, 1.33 ) |       5649 | ####################
+                (1.33 , 2    ) |       3800 | #############
+                (2    , 2.66 ) |       2333 | ########
+                (2.66 , 3.33 ) |       1269 | ####
+                (3.33 , 3.99 ) |        565 | ##
+                (3.99 , 4.66 ) |        315 | #
+                (4.66 , 5.32 ) |        155 | 
+                (5.32 , 5.99 ) |         38 | 
+                (5.99 , 6.65 ) |          5 | 
+[I]         trt-runner-N0-01/03/24-11:25:54: A-V-2-MaxPool | Stats: mean=1.0782, std-dev=1.0859, var=1.1791, median=0.83998, min=2.2204e-16 at (0, 0, 0, 4), max=6.6539 at (0, 10, 1, 11), avg-magnitude=1.0782
+[V]             ---- Histogram ----
+                Bin Range      |  Num Elems | Visualization
+                (0    , 0.665) |      10959 | ########################################
+                (0.665, 1.33 ) |       5649 | ####################
+                (1.33 , 2    ) |       3800 | #############
+                (2    , 2.66 ) |       2333 | ########
+                (2.66 , 3.33 ) |       1269 | ####
+                (3.33 , 3.99 ) |        565 | ##
+                (3.99 , 4.66 ) |        315 | #
+                (4.66 , 5.32 ) |        155 | 
+                (5.32 , 5.99 ) |         38 | 
+                (5.99 , 6.65 ) |          5 | 
+[I]         Error Metrics: A-V-2-MaxPool
+[I]             Minimum Required Tolerance: elemwise error | [abs=0] OR [rel=0] (requirements may be lower if both abs/rel tolerances are set)
+[I]             Absolute Difference | Stats: mean=0, std-dev=0, var=0, median=0, min=0 at (0, 0, 0, 0), max=0 at (0, 0, 0, 0), avg-magnitude=0
+[V]                 ---- Histogram ----
+                    Bin Range    |  Num Elems | Visualization
+                    (-0.5, -0.4) |          0 | 
+                    (-0.4, -0.3) |          0 | 
+                    (-0.3, -0.2) |          0 | 
+                    (-0.2, -0.1) |          0 | 
+                    (-0.1, 0   ) |          0 | 
+                    (0   , 0.1 ) |      25088 | ########################################
+                    (0.1 , 0.2 ) |          0 | 
+                    (0.2 , 0.3 ) |          0 | 
+                    (0.3 , 0.4 ) |          0 | 
+                    (0.4 , 0.5 ) |          0 | 
+[I]             Relative Difference | Stats: mean=0, std-dev=0, var=0, median=0, min=0 at (0, 0, 0, 0), max=0 at (0, 0, 0, 0), avg-magnitude=0
+[V]                 ---- Histogram ----
+                    Bin Range    |  Num Elems | Visualization
+                    (-0.5, -0.4) |          0 | 
+                    (-0.4, -0.3) |          0 | 
+                    (-0.3, -0.2) |          0 | 
+                    (-0.2, -0.1) |          0 | 
+                    (-0.1, 0   ) |          0 | 
+                    (0   , 0.1 ) |      25088 | ########################################
+                    (0.1 , 0.2 ) |          0 | 
+                    (0.2 , 0.3 ) |          0 | 
+                    (0.3 , 0.4 ) |          0 | 
+                    (0.4 , 0.5 ) |          0 | 
+[I]         PASSED | Output: 'A-V-2-MaxPool' | Difference is within tolerance (rel=0.001, abs=0.001)
+[I]     Comparing Output: 'A-V-5-MaxPool' (dtype=float32, shape=(4, 64, 7, 7)) with 'A-V-5-MaxPool' (dtype=float32, shape=(4, 64, 7, 7))
+[I]         Tolerance: [abs=0.001, rel=0.001] | Checking elemwise error
+[W]         trt-runner-N0-01/03/24-11:25:54     | Output: A-V-5-MaxPool: Some values are 0. Will add a small epsilon quantity to these when computing relative difference. Note that this may cause some relative differences to be extremely high. 
+[I]         onnxrt-runner-N0-01/03/24-11:25:54: A-V-5-MaxPool | Stats: mean=13.058, std-dev=15.025, var=225.74, median=8.0982, min=0 at (0, 0, 0, 0), max=78.38 at (3, 48, 5, 4), avg-magnitude=13.058
+[V]             ---- Histogram ----
+                Bin Range    |  Num Elems | Visualization
+                (0   , 7.84) |       6210 | ########################################
+                (7.84, 15.7) |       1926 | ############
+                (15.7, 23.5) |       1623 | ##########
+                (23.5, 31.4) |       1022 | ######
+                (31.4, 39.2) |        771 | ####
+                (39.2, 47  ) |        548 | ###
+                (47  , 54.9) |        270 | #
+                (54.9, 62.7) |        116 | 
+                (62.7, 70.5) |         47 | 
+                (70.5, 78.4) |         11 | 
+[I]         trt-runner-N0-01/03/24-11:25:54: A-V-5-MaxPool | Stats: mean=13.058, std-dev=15.025, var=225.74, median=8.0982, min=2.2204e-16 at (0, 0, 0, 0), max=78.38 at (3, 48, 5, 4), avg-magnitude=13.058
+[V]             ---- Histogram ----
+                Bin Range    |  Num Elems | Visualization
+                (0   , 7.84) |       6210 | ########################################
+                (7.84, 15.7) |       1926 | ############
+                (15.7, 23.5) |       1623 | ##########
+                (23.5, 31.4) |       1022 | ######
+                (31.4, 39.2) |        771 | ####
+                (39.2, 47  ) |        548 | ###
+                (47  , 54.9) |        270 | #
+                (54.9, 62.7) |        116 | 
+                (62.7, 70.5) |         47 | 
+                (70.5, 78.4) |         11 | 
+[I]         Error Metrics: A-V-5-MaxPool
+[I]             Minimum Required Tolerance: elemwise error | [abs=7.6294e-06] OR [rel=6.9172e-05] (requirements may be lower if both abs/rel tolerances are set)
+[I]             Absolute Difference | Stats: mean=3.7742e-07, std-dev=8.8636e-07, var=7.8564e-13, median=0, min=0 at (0, 0, 0, 0), max=7.6294e-06 at (0, 16, 5, 3), avg-magnitude=3.7742e-07
+[V]                 ---- Histogram ----
+                    Bin Range            |  Num Elems | Visualization
+                    (0       , 7.63e-07) |      10185 | ########################################
+                    (7.63e-07, 1.53e-06) |        976 | ###
+                    (1.53e-06, 2.29e-06) |        913 | ###
+                    (2.29e-06, 3.05e-06) |          8 | 
+                    (3.05e-06, 3.81e-06) |          0 | 
+                    (3.81e-06, 4.58e-06) |        450 | #
+                    (4.58e-06, 5.34e-06) |          0 | 
+                    (5.34e-06, 6.1e-06 ) |          0 | 
+                    (6.1e-06 , 6.87e-06) |          0 | 
+                    (6.87e-06, 7.63e-06) |         12 | 
+[I]             Relative Difference | Stats: mean=7.0316e-08, std-dev=8.6989e-07, var=7.5671e-13, median=0, min=0 at (0, 0, 0, 0), max=6.9172e-05 at (0, 37, 5, 2), avg-magnitude=7.0316e-08
+[V]                 ---- Histogram ----
+                    Bin Range            |  Num Elems | Visualization
+                    (0       , 6.92e-06) |      12529 | ########################################
+                    (6.92e-06, 1.38e-05) |          9 | 
+                    (1.38e-05, 2.08e-05) |          3 | 
+                    (2.08e-05, 2.77e-05) |          1 | 
+                    (2.77e-05, 3.46e-05) |          0 | 
+                    (3.46e-05, 4.15e-05) |          0 | 
+                    (4.15e-05, 4.84e-05) |          1 | 
+                    (4.84e-05, 5.53e-05) |          0 | 
+                    (5.53e-05, 6.23e-05) |          0 | 
+                    (6.23e-05, 6.92e-05) |          1 | 
+[I]         PASSED | Output: 'A-V-5-MaxPool' | Difference is within tolerance (rel=0.001, abs=0.001)
+[I]     PASSED | All outputs matched | Outputs: ['A-V-2-MaxPool', 'A-V-5-MaxPool']
+[I] Accuracy Summary | onnxrt-runner-N0-01/03/24-11:25:54 vs. trt-runner-N0-01/03/24-11:25:54 | Passed: 1/1 iterations | Pass Rate: 100.0%
+[I] PASSED | Runtime: 5.960s | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy run modelA.onnx --onnxrt --trt --save-engine=model-04.plan --onnx-outputs A-V-2-MaxPool A-V-5-MaxPool --trt-outputs A-V-2-MaxPool A-V-5-MaxPool --trt-min-shapes tensorX:[1,1,28,28] --trt-opt-shapes tensorX:[4,1,28,28] --trt-max-shapes tensorX:[16,1,28,28] --input-shapes tensorX:[4,1,28,28] --atol 1e-3 --rtol 1e-3 --verbose

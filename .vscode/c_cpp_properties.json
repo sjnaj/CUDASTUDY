@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/Common",
+                "/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/torch/include",
+                "/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/torch/include/torch/csrc/api/include",
+                "/home/fengsc/anaconda3/envs/py37/include/python3.7m",
+                "/usr/local/include/opencv4",
+                "/usr/local/include"
+
+            ],
+            "defines": [],
+            "compilerPath": "/usr/local/cuda/bin/nvcc",
+            "cStandard": "gnu17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-x64",
+            "configurationProvider": "ms-vscode.makefile-tools"
+        }
+    ],
+    "version": 4
+}

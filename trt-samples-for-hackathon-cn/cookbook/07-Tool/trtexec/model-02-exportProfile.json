@@ -1,0 +1,17 @@
+[
+  { "count" : 4126 }
+, { "name" : "A-N-0-Conv + A-N-1-Relu", "timeMs" : 75.8834, "averageMs" : 0.0183915, "medianMs" : 0.018416, "percentage" : 3.65904 }
+, { "name" : "A-N-2-MaxPool", "timeMs" : 26.2733, "averageMs" : 0.00636775, "medianMs" : 0.006144, "percentage" : 1.26688 }
+, { "name" : "Reformatting CopyNode for Input Tensor 0 to A-N-3-Conv + A-N-4-Relu", "timeMs" : 28.0081, "averageMs" : 0.00678819, "medianMs" : 0.007072, "percentage" : 1.35053 }
+, { "name" : "A-N-3-Conv + A-N-4-Relu", "timeMs" : 166.229, "averageMs" : 0.0402881, "medianMs" : 0.04096, "percentage" : 8.01541 }
+, { "name" : "Reformatting CopyNode for Input Tensor 0 to A-N-5-MaxPool", "timeMs" : 0, "averageMs" : 0, "medianMs" : 0, "percentage" : 0 }
+, { "name" : "A-N-5-MaxPool", "timeMs" : 24.1808, "averageMs" : 0.00586059, "medianMs" : 0.006144, "percentage" : 1.16598 }
+, { "name" : "Reformatting CopyNode for Input Tensor 0 to A-N-6-Transpose + A-N-7-Reshape + reshape_before_A-N-8-MatMul", "timeMs" : 0, "averageMs" : 0, "medianMs" : 0, "percentage" : 0 }
+, { "name" : "A-N-6-Transpose + A-N-7-Reshape + reshape_before_A-N-8-MatMul", "timeMs" : 17.9607, "averageMs" : 0.00435305, "medianMs" : 0.004096, "percentage" : 0.866051 }
+, { "name" : "Reformatting CopyNode for Input Tensor 0 to A-N-8-MatMul + A-N-10-Relu", "timeMs" : 0, "averageMs" : 0, "medianMs" : 0, "percentage" : 0 }
+, { "name" : "A-N-8-MatMul + A-N-10-Relu", "timeMs" : 1648.65, "averageMs" : 0.399575, "medianMs" : 0.379904, "percentage" : 79.4965 }
+, { "name" : "A-N-11-MatMul", "timeMs" : 60.1269, "averageMs" : 0.0145727, "medianMs" : 0.014336, "percentage" : 2.89927 }
+, { "name" : "reshape_after_A-N-11-MatMul", "timeMs" : 0, "averageMs" : 0, "medianMs" : 0, "percentage" : 0 }
+, { "name" : "A-N-13-Softmax + A-N-14-ArgMax", "timeMs" : 26.5533, "averageMs" : 0.00643561, "medianMs" : 0.006144, "percentage" : 1.28038 }
+, { "name" : "(Unnamed Layer* 32) [Shuffle]", "timeMs" : 0, "averageMs" : 0, "medianMs" : 0, "percentage" : 0 }
+]

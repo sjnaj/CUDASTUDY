@@ -1,0 +1,21 @@
+[I] Loading tactic replay file from model-00.tactic
+[I] Layer: A-N-0-Conv + A-N-1-Relu
+        Algorithm: (Implementation: 2147483657, Tactic: 7144526460361122478) | Inputs: (TensorInfo(TensorFormat.LINEAR, DataType.FLOAT, (784, 784, 28, 1), None, None),) | Outputs: (TensorInfo(TensorFormat.LINEAR, DataType.FLOAT, (25088, 784, 28, 1), None, None),)
+    Layer: A-N-2-MaxPool
+        Algorithm: (Implementation: 2147483695, Tactic: 2883132114461251834) | Inputs: (TensorInfo(TensorFormat.LINEAR, DataType.FLOAT, (25088, 784, 28, 1), None, None),) | Outputs: (TensorInfo(TensorFormat.LINEAR, DataType.FLOAT, (6272, 196, 14, 1), None, None),)
+    Layer: A-N-3-Conv + A-N-4-Relu
+        Algorithm: (Implementation: 2147483657, Tactic: -9153228964338181824) | Inputs: (TensorInfo(TensorFormat.HWC, DataType.FLOAT, (6272, 1, 448, 32), None, None),) | Outputs: (TensorInfo(TensorFormat.HWC, DataType.FLOAT, (12544, 1, 896, 64), None, None),)
+    Layer: A-N-5-MaxPool
+        Algorithm: (Implementation: 2147483695, Tactic: -8970372468295098745) | Inputs: (TensorInfo(TensorFormat.CHW4, DataType.FLOAT, (3136, 1, 224, 16), None, None),) | Outputs: (TensorInfo(TensorFormat.CHW4, DataType.FLOAT, (784, 1, 112, 16), None, None),)
+    Layer: A-N-6-Transpose + A-N-7-Reshape + reshape_before_A-N-8-MatMul
+        Algorithm: (Implementation: 2147483661, Tactic: 0) | Inputs: (TensorInfo(TensorFormat.HWC, DataType.FLOAT, (3136, 1, 448, 64), None, None),) | Outputs: (TensorInfo(TensorFormat.HWC, DataType.FLOAT, (3136, 1, 3136, 3136), None, None),)
+    Layer: A-N-8-MatMul + A-N-10-Relu
+        Algorithm: (Implementation: 2147483689, Tactic: 1) | Inputs: (TensorInfo(TensorFormat.LINEAR, DataType.FLOAT, (3136, 1, 1, 1), None, None),) | Outputs: (TensorInfo(TensorFormat.LINEAR, DataType.FLOAT, (1024, 1, 1, 1), None, None),)
+    Layer: A-N-11-MatMul
+        Algorithm: (Implementation: 2147483648, Tactic: 1) | Inputs: (TensorInfo(TensorFormat.LINEAR, DataType.FLOAT, (1024, 1, 1, 1), None, None),) | Outputs: (TensorInfo(TensorFormat.LINEAR, DataType.FLOAT, (10, 1, 1, 1), None, None),)
+    Layer: reshape_after_A-N-11-MatMul
+        Algorithm: (Implementation: 2147483661, Tactic: 0) | Inputs: (TensorInfo(TensorFormat.LINEAR, DataType.FLOAT, (10, 1, 1, 1), None, None),) | Outputs: (TensorInfo(TensorFormat.LINEAR, DataType.FLOAT, (10, 1), None, None),)
+    Layer: A-N-13-Softmax + A-N-14-ArgMax
+        Algorithm: (Implementation: 2147483682, Tactic: 1001) | Inputs: (TensorInfo(TensorFormat.LINEAR, DataType.FLOAT, (10, 1), None, None),) | Outputs: (TensorInfo(TensorFormat.LINEAR, DataType.FLOAT, (1, 1), None, None), TensorInfo(TensorFormat.LINEAR, DataType.INT32, (1, 1), None, None))
+    Layer: (Unnamed Layer* 32) [Shuffle]
+        Algorithm: (Implementation: 2147483661, Tactic: 0) | Inputs: (TensorInfo(TensorFormat.LINEAR, DataType.INT32, (1, 1), None, None),) | Outputs: (TensorInfo(TensorFormat.LINEAR, DataType.INT32, (1,), None, None),)

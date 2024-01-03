@@ -1,0 +1,14 @@
+[I] RUNNING | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy run modelA.onnx --onnxrt
+[I] onnxrt-runner-N0-01/03/24-11:24:58  | Activating and starting inference
+[I] Creating ONNX-Runtime Inference Session with providers: ['CPUExecutionProvider']
+[W] Input tensor: tensorX [shape=BoundedShape(['B', 1, 28, 28], min=None, max=None)] | Will generate data of shape: [1, 1, 28, 28].
+    If this is incorrect, please provide a custom data loader.
+[I] onnxrt-runner-N0-01/03/24-11:24:58 
+    ---- Inference Input(s) ----
+    {tensorX [dtype=float32, shape=(1, 1, 28, 28)]}
+[I] onnxrt-runner-N0-01/03/24-11:24:58 
+    ---- Inference Output(s) ----
+    {A-V-12-Add [dtype=float32, shape=(1, 10)],
+     A-V-14-ArgMax [dtype=int64, shape=(1,)]}
+[I] onnxrt-runner-N0-01/03/24-11:24:58  | Completed 1 iteration(s) in 1.131 ms | Average inference time: 1.131 ms.
+[I] PASSED | Runtime: 0.875s | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy run modelA.onnx --onnxrt

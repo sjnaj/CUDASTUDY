@@ -1,0 +1,27 @@
+[I] RUNNING | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy run modelB.onnx --trt --plugins ./AddScalarPlugin.so
+[I] trt-runner-N0-01/03/24-11:26:09     | Activating and starting inference
+[I] Loading plugin library: ./AddScalarPlugin.so
+[I] Loading plugin library: ./AddScalarPlugin.so
+[I] Loading plugin library: ./AddScalarPlugin.so
+[W] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage. See `CUDA_MODULE_LOADING` in https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#env-vars
+[W] Input tensor: tensorX (dtype=DataType.FLOAT, shape=(-1,)) | No shapes provided; Will use shape: [1] for min/opt/max in profile.
+[W] This will cause the tensor to have a static shape. If this is incorrect, please set the range of shapes for this input tensor.
+[I] Configuring with profiles:[
+        Profile 0:
+            {tensorX [min=[1], opt=[1], max=[1]]}
+    ]
+[I] Building engine with configuration:
+    Flags                  | []
+    Engine Capability      | EngineCapability.DEFAULT
+    Memory Pools           | [WORKSPACE: 2047.88 MiB]
+    Tactic Sources         | [CUBLAS, CUBLAS_LT, CUDNN, EDGE_MASK_CONVOLUTIONS, JIT_CONVOLUTIONS]
+    Profiling Verbosity    | ProfilingVerbosity.DETAILED
+[I] Finished engine building in 0.546 seconds
+[I] trt-runner-N0-01/03/24-11:26:09    
+    ---- Inference Input(s) ----
+    {tensorX [dtype=float32, shape=(1,)]}
+[I] trt-runner-N0-01/03/24-11:26:09    
+    ---- Inference Output(s) ----
+    {B-V-0-AddScalar [dtype=float32, shape=(1,)]}
+[I] trt-runner-N0-01/03/24-11:26:09     | Completed 1 iteration(s) in 1303 ms | Average inference time: 1303 ms.
+[I] PASSED | Runtime: 6.156s | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy run modelB.onnx --trt --plugins ./AddScalarPlugin.so

@@ -1,0 +1,97 @@
+[I] RUNNING | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy run modelA.onnx --onnxrt --validate --fail-fast --verbose
+[V] Loaded Module: polygraphy | Version: 0.49.0 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/polygraphy']
+[V] Loaded extension modules: []
+[I] onnxrt-runner-N0-01/03/24-11:26:15  | Activating and starting inference
+[V] Loaded Module: onnxruntime | Version: 1.13.1 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnxruntime']
+[I] Creating ONNX-Runtime Inference Session with providers: ['CPUExecutionProvider']
+[V] Loading inputs from data loader
+[V] Generating data using numpy seed: 1
+[V] Loaded Module: numpy | Version: 1.21.6 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/numpy']
+[W] Input tensor: tensorX [shape=BoundedShape(['B', 1, 28, 28], min=None, max=None)] | Will generate data of shape: [1, 1, 28, 28].
+    If this is incorrect, please provide a custom data loader.
+[V] Input tensor: tensorX | Generating input data in range: [0.0, 1.0]
+[V] Loaded Module: torch | Version: 1.13.0 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/torch']
+[I] onnxrt-runner-N0-01/03/24-11:26:15 
+    ---- Inference Input(s) ----
+    {tensorX [dtype=float32, shape=(1, 1, 28, 28)]}
+[V] onnxrt-runner-N0-01/03/24-11:26:15  | Input metadata is: {tensorX [dtype=float32, shape=('B', 1, 28, 28)]}
+[I] onnxrt-runner-N0-01/03/24-11:26:15 
+    ---- Inference Output(s) ----
+    {A-V-12-Add [dtype=float32, shape=(1, 10)],
+     A-V-14-ArgMax [dtype=int64, shape=(1,)]}
+[I] onnxrt-runner-N0-01/03/24-11:26:15  | Completed 1 iteration(s) in 1.235 ms | Average inference time: 1.235 ms.
+[V] Successfully ran: ['onnxrt-runner-N0-01/03/24-11:26:15']
+[I] Output Validation | Runners: ['onnxrt-runner-N0-01/03/24-11:26:15']
+[I]     onnxrt-runner-N0-01/03/24-11:26:15  | Validating output: A-V-12-Add (check_inf=True, check_nan=True)
+[I]         mean=1566.9, std-dev=6585.7, var=4.3371e+07, median=-375.71, min=-5560.4 at (0, 6), max=14407 at (0, 1), avg-magnitude=5622.7
+[V]             ---- Values ----
+                    [[11103.842  14406.609  -5333.0654  4482.3423 -3071.985   3634.7148
+                      -5560.425   2320.5571 -3186.0535 -3127.2827]]
+[V]             ---- Histogram ----
+                Bin Range              |  Num Elems | Visualization
+                (-5.56e+03, -3.56e+03) |          2 | ##########################
+                (-3.56e+03, -1.57e+03) |          3 | ########################################
+                (-1.57e+03, 430      ) |          0 | 
+                (430      , 2.43e+03 ) |          1 | #############
+                (2.43e+03 , 4.42e+03 ) |          1 | #############
+                (4.42e+03 , 6.42e+03 ) |          1 | #############
+                (6.42e+03 , 8.42e+03 ) |          0 | 
+                (8.42e+03 , 1.04e+04 ) |          0 | 
+                (1.04e+04 , 1.24e+04 ) |          1 | #############
+                (1.24e+04 , 1.44e+04 ) |          1 | #############
+[I]         PASSED | Output: A-V-12-Add is valid
+[I]     onnxrt-runner-N0-01/03/24-11:26:15  | Validating output: A-V-14-ArgMax (check_inf=True, check_nan=True)
+[I]         mean=1, std-dev=0, var=0, median=1, min=1 at (0,), max=1 at (0,), avg-magnitude=1
+[V]             ---- Values ----
+                    [1]
+[V]             ---- Histogram ----
+                Bin Range  |  Num Elems | Visualization
+                (0.5, 0.6) |          0 | 
+                (0.6, 0.7) |          0 | 
+                (0.7, 0.8) |          0 | 
+                (0.8, 0.9) |          0 | 
+                (0.9, 1  ) |          0 | 
+                (1  , 1.1) |          1 | ########################################
+                (1.1, 1.2) |          0 | 
+                (1.2, 1.3) |          0 | 
+                (1.3, 1.4) |          0 | 
+                (1.4, 1.5) |          0 | 
+[I]         PASSED | Output: A-V-14-ArgMax is valid
+[I]     PASSED | Output Validation
+[I] PASSED | Runtime: 0.935s | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy run modelA.onnx --onnxrt --validate --fail-fast --verbose
+/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/numpy/core/_methods.py:230: RuntimeWarning: invalid value encountered in subtract
+  x = asanyarray(arr - arrmean)
+[I] RUNNING | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy run modelC.onnx --onnxrt --validate --fail-fast --verbose
+[V] Loaded Module: polygraphy | Version: 0.49.0 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/polygraphy']
+[V] Loaded extension modules: []
+[I] onnxrt-runner-N0-01/03/24-11:26:17  | Activating and starting inference
+[V] Loaded Module: onnxruntime | Version: 1.13.1 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnxruntime']
+[I] Creating ONNX-Runtime Inference Session with providers: ['CPUExecutionProvider']
+[V] Loading inputs from data loader
+[V] Generating data using numpy seed: 1
+[V] Loaded Module: numpy | Version: 1.21.6 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/numpy']
+[W] Input tensor: tensorX [shape=BoundedShape(['B'], min=None, max=None)] | Will generate data of shape: [1].
+    If this is incorrect, please provide a custom data loader.
+[V] Input tensor: tensorX | Generating input data in range: [0.0, 1.0]
+[V] Loaded Module: torch | Version: 1.13.0 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/torch']
+[I] onnxrt-runner-N0-01/03/24-11:26:17 
+    ---- Inference Input(s) ----
+    {tensorX [dtype=float32, shape=(1,)]}
+[V] onnxrt-runner-N0-01/03/24-11:26:17  | Input metadata is: {tensorX [dtype=float32, shape=('B',)]}
+[I] onnxrt-runner-N0-01/03/24-11:26:17 
+    ---- Inference Output(s) ----
+    {C-V-0-Div [dtype=float32, shape=(1,)]}
+[I] onnxrt-runner-N0-01/03/24-11:26:17  | Completed 1 iteration(s) in 1.398 ms | Average inference time: 1.398 ms.
+[V] Successfully ran: ['onnxrt-runner-N0-01/03/24-11:26:17']
+[I] Output Validation | Runners: ['onnxrt-runner-N0-01/03/24-11:26:17']
+[I]     onnxrt-runner-N0-01/03/24-11:26:17  | Validating output: C-V-0-Div (check_inf=True, check_nan=True)
+[I]         mean=inf, std-dev=nan, var=nan, median=inf, min=inf at (0,), max=inf at (0,), avg-magnitude=inf
+[V]             ---- Values ----
+                    [inf]
+[V]             Could not generate histogram. Note: Error was: autodetected range of [inf, inf] is not finite
+[V]             
+[E]         Inf Detected | One or more non-finite values were encountered in this output
+[I]         Note: Use -vv or set logging verbosity to EXTRA_VERBOSE to display non-finite values
+[E]         FAILED | Errors detected in output: C-V-0-Div
+[E]     FAILED | Output Validation
+[E] FAILED | Runtime: 0.888s | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy run modelC.onnx --onnxrt --validate --fail-fast --verbose

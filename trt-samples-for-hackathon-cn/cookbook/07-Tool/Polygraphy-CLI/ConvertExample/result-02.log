@@ -1,0 +1,48 @@
+[V] Loaded Module: polygraphy | Version: 0.49.0 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/polygraphy']
+[V] Loaded Module: tensorrt | Version: 8.5.1.7 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/tensorrt']
+[V] [MemUsageChange] Init CUDA: CPU +9, GPU +0, now: CPU 25, GPU 405 (MiB)
+[V] [MemUsageChange] Init builder kernel library: CPU +122, GPU +22, now: CPU 202, GPU 427 (MiB)
+[V] ----------------------------------------------------------------
+[V] Input filename:   /home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/07-Tool/Polygraphy-CLI/ConvertExample/modelA.onnx
+[V] ONNX IR version:  0.0.9
+[V] Opset version:    11
+[V] Producer name:    
+[V] Producer version: 
+[V] Domain:           
+[V] Model version:    0
+[V] Doc string:       
+[V] ----------------------------------------------------------------
+[W] onnx2trt_utils.cpp:377: Your ONNX model has been generated with INT64 weights, while TensorRT does not natively support INT64. Attempting to cast down to INT32.
+[W] Tensor DataType is determined at build time for tensors not marked as input or output.
+[V] Setting TensorRT Optimization Profiles
+[V] Input tensor: tensorX (dtype=DataType.FLOAT, shape=(-1, 1, 28, 28)) | Setting input tensor shapes to: (min=[1, 1, 28, 28], opt=[4, 1, 28, 28], max=[16, 1, 28, 28])
+[I] Configuring with profiles:[
+        Profile 0:
+            {tensorX [min=[1, 1, 28, 28], opt=[4, 1, 28, 28], max=[16, 1, 28, 28]]}
+    ]
+[I] Building engine with configuration:
+    Flags                  | [FP16]
+    Engine Capability      | EngineCapability.DEFAULT
+    Memory Pools           | [WORKSPACE: 1024.00 MiB]
+    Tactic Sources         | [CUBLAS, CUBLAS_LT, CUDNN, EDGE_MASK_CONVOLUTIONS, JIT_CONVOLUTIONS]
+    Profiling Verbosity    | ProfilingVerbosity.DETAILED
+[V] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +186, GPU +12, now: CPU 413, GPU 439 (MiB)
+[V] [MemUsageChange] Init cuDNN: CPU +1, GPU +8, now: CPU 414, GPU 447 (MiB)
+[V] Global timing cache in use. Profiling results in this builder pass will be stored.
+[V] Total Activation Memory: 1077423104
+[V] Detected 1 inputs and 2 output network tensors.
+[V] Total Host Persistent Memory: 6464
+[V] Total Device Persistent Memory: 6656
+[V] Total Scratch Memory: 0
+[V] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 30 MiB, GPU 438 MiB
+[V] [BlockAssignment] Started assigning block shifts. This will take 13 steps to complete.
+[V] [BlockAssignment] Algorithm ShiftNTopDown took 0.0904ms to assign 3 blocks to 13 nodes requiring 2408448 bytes.
+[V] Total Activation Memory: 2408448
+[V] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +8, now: CPU 510, GPU 471 (MiB)
+[V] [MemUsageChange] Init cuDNN: CPU +0, GPU +10, now: CPU 510, GPU 481 (MiB)
+[W] TensorRT encountered issues when converting weights between types and that could affect accuracy.
+[W] If this is not the desired behavior, please modify the weights or retrain with regularization to adjust the magnitude of the weights.
+[W] Check verbose logs for the list of affected weights.
+[W] - 2 weights are affected by this issue: Detected subnormal FP16 values.
+[V] [MemUsageChange] TensorRT-managed allocation in building engine: CPU +12, GPU +13, now: CPU 12, GPU 13 (MiB)
+[I] Finished engine building in 10.838 seconds

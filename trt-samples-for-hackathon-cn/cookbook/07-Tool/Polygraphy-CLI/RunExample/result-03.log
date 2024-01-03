@@ -1,0 +1,30 @@
+[I] RUNNING | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy run model-02.plan --trt --input-shapes tensorX:[4,1,28,28] --verbose
+[V] Loaded Module: polygraphy | Version: 0.49.0 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/polygraphy']
+[V] Loaded extension modules: []
+[I] Will generate inference input data according to provided TensorMetadata: {tensorX [shape=(4, 1, 28, 28)]}
+[I] trt-runner-N0-01/03/24-11:25:20     | Activating and starting inference
+[I] Loading bytes from /home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/07-Tool/Polygraphy-CLI/RunExample/model-02.plan
+[V] Loaded Module: tensorrt | Version: 8.5.1.7 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/tensorrt']
+[V] Loaded engine size: 12 MiB
+[V] [MemUsageChange] Init cuDNN: CPU +366, GPU +142, now: CPU 654, GPU 637 (MiB)
+[V] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +12, now: CPU 0, GPU 12 (MiB)
+[V] [MemUsageChange] Init cuDNN: CPU +0, GPU +8, now: CPU 641, GPU 637 (MiB)
+[V] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +2, now: CPU 0, GPU 14 (MiB)
+[W] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage. See `CUDA_MODULE_LOADING` in https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#env-vars
+[V] Found candidate CUDA libraries: ['/usr/local/cuda/lib64/libcudart.so.11.7.60', '/usr/local/cuda/lib64/libcudart.so.11.0', '/usr/local/cuda/lib64/libcudart.so']
+[V] Loading inputs from data loader
+[V] Generating data using numpy seed: 1
+[V] Loaded Module: numpy | Version: 1.21.6 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/numpy']
+[V] Input tensor: tensorX | Generating input data in range: [0.0, 1.0]
+[V] Loaded Module: torch | Version: 1.13.0 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/torch']
+[I] trt-runner-N0-01/03/24-11:25:20    
+    ---- Inference Input(s) ----
+    {tensorX [dtype=float32, shape=(4, 1, 28, 28)]}
+[V] trt-runner-N0-01/03/24-11:25:20     | Input metadata is: {tensorX [dtype=float32, shape=(-1, 1, 28, 28)]}
+[I] trt-runner-N0-01/03/24-11:25:20    
+    ---- Inference Output(s) ----
+    {A-V-12-Add [dtype=float32, shape=(4, 10)],
+     A-V-14-ArgMax [dtype=int32, shape=(4,)]}
+[I] trt-runner-N0-01/03/24-11:25:20     | Completed 1 iteration(s) in 1044 ms | Average inference time: 1044 ms.
+[V] Successfully ran: ['trt-runner-N0-01/03/24-11:25:20']
+[I] PASSED | Runtime: 4.395s | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy run model-02.plan --trt --input-shapes tensorX:[4,1,28,28] --verbose

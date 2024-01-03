@@ -1,0 +1,526 @@
+[V] Loaded Module: polygraphy | Version: 0.49.0 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/polygraphy']
+[V] Loaded Module: tensorrt | Version: 8.5.1.7 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/tensorrt']
+[V] [MemUsageChange] Init CUDA: CPU +9, GPU +0, now: CPU 25, GPU 405 (MiB)
+[V] [MemUsageChange] Init builder kernel library: CPU +122, GPU +22, now: CPU 202, GPU 427 (MiB)
+[V] Starting shape inference
+[V] Loaded Module: onnx | Version: 1.14.1 | Path: ['/home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnx']
+[I] Loading model: /home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/07-Tool/Polygraphy-CLI/InspectExample/modelA.onnx
+[V] Loaded Module: onnxruntime.tools.symbolic_shape_infer
+[V] Inferred shapes in the model with `onnxruntime.tools.symbolic_shape_infer`.
+    Note: To force Polygraphy to use `onnx.shape_inference` instead, set `allow_onnxruntime=False` or use the `--no-onnxruntime-shape-inference` command-line option.
+[V] Shape inference completed successfully
+[W] onnx2trt_utils.cpp:377: Your ONNX model has been generated with INT64 weights, while TensorRT does not natively support INT64. Attempting to cast down to INT32.
+[W] Tensor DataType is determined at build time for tensors not marked as input or output.
+[V] Loaded Module: polygraphy.backend.trt.util
+[I] ==== TensorRT Network ====
+    Name: Unnamed Network 0 | Explicit Batch Network
+    
+    ---- 1 Network Input(s) ----
+    {tensorX [dtype=float32, shape=(-1, 1, 28, 28)]}
+    
+    ---- 2 Network Output(s) ----
+    {A-V-12-Add [dtype=float32, shape=(-1, 10)],
+     A-V-14-ArgMax [dtype=int32, shape=(-1,)]}
+    
+    ---- 33 Layer(s) ----
+    Layer 0    | A-N-0-Conv [Op: LayerType.CONVOLUTION]
+        {tensorX [dtype=float32, shape=(-1, 1, 28, 28)]}
+         -> {A-V-0-Conv [dtype=float32, shape=(-1, 32, 28, 28)]}
+        ---- Attributes ----
+        A-N-0-Conv.bias = [-0.07154882 -0.91694343 -0.23034757  0.13882935  0.49266875 -0.09333432
+          0.5284562   0.18668091 -0.8823418  -0.5806886  -0.45883358 -0.36645126
+          0.7517457  -0.4671384  -0.17602468  0.7852193  -0.03527075  0.97111404
+          0.3211813  -0.6877805  -0.9083667  -0.7231264  -0.6868889   0.39496768
+         -0.5937443  -0.42069644 -0.20718694 -0.5807126  -0.9886943  -0.67437285
+          0.50676954 -0.4580667 ]
+        A-N-0-Conv.dilation = (1, 1)
+        A-N-0-Conv.dilation_nd = (1, 1)
+        A-N-0-Conv.kernel = [ 2.88620472e-01 -9.21704710e-01 -5.29222429e-01 -5.69808960e-01
+          8.17779303e-02  3.55972886e-01  6.33173943e-01  1.45299077e-01
+         -3.49979699e-01  2.55223393e-01  3.71020555e-01 -5.16844511e-01
+         -4.65902686e-01 -1.04619026e-01  8.46210718e-01  2.82685041e-01
+         -7.65549242e-01  9.27524090e-01  6.17070913e-01 -5.16733825e-01
+          2.90793657e-01  1.69710398e-01 -7.31729865e-02  1.09478235e-02
+         -8.20790768e-01  6.61196589e-01  8.70816708e-01  3.97312164e-01
+         -6.59301877e-01 -9.49421346e-01 -5.46593070e-01 -6.81566715e-01
+         -6.66704774e-02 -2.21318424e-01 -1.39397919e-01 -1.95983291e-01
+         -2.46065497e-01  1.66307092e-01  3.06011319e-01  7.83772469e-01
+         -5.45688093e-01  5.94487548e-01  8.13655257e-01 -2.58613348e-01
+          6.69413090e-01 -3.30647111e-01  8.46611857e-01  7.57156491e-01
+          4.94070053e-01 -9.40913320e-01  3.83532524e-01 -4.61045146e-01
+          1.81958556e-01  8.86663437e-01  1.49499178e-01  3.21378589e-01
+          6.23063803e-01  6.10296369e-01  7.35255599e-01  1.32671595e-01
+          9.31955099e-01  3.89942408e-01  6.35782957e-01 -1.32820547e-01
+         -1.48455441e-01  1.80942535e-01 -1.70994043e-01  8.21026802e-01
+         -5.44689894e-01  7.19081402e-01 -4.65226054e-01  6.02331042e-01
+          8.61536860e-01 -5.26923180e-01  7.64522314e-01 -8.31207275e-01
+         -5.32280207e-01  7.85826445e-01  7.13540673e-01 -8.80076051e-01
+          8.56263399e-01  3.03947449e-01 -7.98022628e-01 -3.71082842e-01
+          2.71714449e-01  3.00069571e-01 -9.19128001e-01  6.16251588e-01
+         -1.86238885e-02 -8.88904154e-01  7.27845073e-01  1.67855620e-01
+          9.54935908e-01 -5.60207725e-01  9.85620499e-01  1.04827762e-01
+         -1.90854907e-01 -5.79692960e-01 -8.27296853e-01 -3.26572418e-01
+          8.14003468e-01 -9.93056417e-01 -7.13938475e-01  7.23630190e-02
+          6.96484327e-01  8.99283051e-01  6.09454513e-01  8.38935375e-02
+         -7.85250068e-02  5.60133457e-02  2.57762194e-01  1.88934207e-01
+         -2.54019380e-01  8.07186842e-01  2.99506068e-01  1.67271137e-01
+         -2.55136669e-01 -2.29383647e-01 -2.54953921e-01 -4.35569525e-01
+         -3.82735729e-02 -6.30745232e-01  6.76775575e-01 -4.58256721e-01
+         -4.32552457e-01  5.20272613e-01  6.58283114e-01 -8.98348570e-01
+          5.36518812e-01  1.78227425e-02  7.69039750e-01  5.51571012e-01
+         -1.30771160e-01 -2.35252261e-01 -3.10828745e-01 -1.53283894e-01
+          3.13697457e-01 -7.91843295e-01  3.24339867e-01  6.55000687e-01
+         -7.30497837e-02 -6.72725141e-01  7.82999635e-01 -3.85928810e-01
+         -5.30312300e-01 -6.04272246e-01 -6.35601878e-02 -5.46192527e-02
+          6.74162388e-01 -6.90915525e-01 -2.11130381e-01  2.35951304e-01
+         -5.71436286e-01 -1.60397410e-01 -2.66418040e-01 -5.76417446e-01
+         -7.91176379e-01  2.88749099e-01 -9.67892885e-01  2.28864193e-01
+         -9.80944633e-01 -8.55088353e-01  4.70136404e-02 -3.61613095e-01
+         -8.55714560e-01 -2.28336453e-02  5.59779882e-01 -2.92632461e-01
+         -7.22529054e-01  8.35122943e-01  8.22002053e-01  3.27972174e-02
+          4.73556995e-01  6.93630338e-01  2.74049759e-01 -1.93153620e-02
+         -2.80919075e-01 -7.11072862e-01 -9.40378845e-01 -1.47379041e-02
+          9.09896255e-01  4.91234064e-02  9.97439861e-01 -5.36491454e-01
+          5.44986963e-01  6.55675888e-01  3.18850636e-01 -3.97143006e-01
+          9.49674010e-01 -2.38291085e-01 -8.16801190e-02  4.01525259e-01
+          5.31558275e-01  7.46757388e-01  7.77118325e-01 -6.03725076e-01
+          1.78945303e-01 -7.44693875e-02  7.11220026e-01 -9.80410635e-01
+          3.84871125e-01  7.61479974e-01  1.44875407e-01  4.42438483e-01
+         -4.21031833e-01 -8.91314149e-01 -8.68160486e-01  4.83095407e-01
+          3.04232240e-01 -6.46927655e-01  1.96269035e-01  1.13750815e-01
+         -5.45389652e-02 -5.64159393e-01  5.02501607e-01 -3.72547388e-01
+          9.10702944e-01  8.81883979e-01 -2.05979764e-01  5.87022543e-01
+         -7.21055210e-01 -3.50611985e-01 -7.93452263e-02  9.09483314e-01
+          3.39092016e-01 -1.57362878e-01  5.65166473e-01  2.22416520e-01
+         -9.05109107e-01  9.10224915e-01  9.21718359e-01  6.13171816e-01
+          5.84473610e-02 -2.95230329e-01  5.37889838e-01 -4.99160230e-01
+          5.93753099e-01  2.40220308e-01 -2.52867401e-01 -8.52935672e-01
+         -3.06527257e-01  4.35375094e-01  7.37069011e-01 -4.31203365e-01
+          2.78894186e-01 -6.96588337e-01 -9.74218130e-01  7.02604175e-01
+          7.94745207e-01  5.10912776e-01  6.70875549e-01 -6.25655174e-01
+         -5.25220275e-01 -9.10542905e-01 -8.00925493e-03  4.90355372e-01
+         -7.56659269e-01 -3.53834271e-01  5.62622428e-01  4.67723370e-01
+         -4.19361472e-01  8.04669499e-01 -7.14450002e-01  2.88865924e-01
+         -3.94416630e-01  7.67334342e-01 -1.28256381e-01  8.27900648e-01
+         -5.14639854e-01 -7.07769394e-01 -7.42262959e-01  1.52003288e-01
+         -2.25235343e-01  7.30283618e-01  4.17035699e-01  8.62026811e-01
+          1.49511933e-01  9.33130622e-01 -3.65556717e-01  9.50273633e-01
+         -5.04060805e-01  9.28314567e-01 -6.14822984e-01 -7.88160801e-01
+          8.33161712e-01  4.42229867e-01  8.35392952e-01 -2.47146249e-01
+          7.33958840e-01 -2.16702878e-01 -2.04790413e-01  2.46036530e-01
+          5.74518681e-01  6.48899913e-01 -2.07744598e-01 -3.14132392e-01
+         -1.72911048e-01 -2.23035097e-01 -6.52576089e-01  5.73025823e-01
+         -2.02222705e-01  5.13159633e-01 -4.77401793e-01 -4.74882364e-01
+          3.85694504e-02 -9.60767269e-03  3.58819246e-01  9.99262810e-01
+         -3.63545477e-01 -7.78605342e-02  3.79435539e-01  2.56326556e-01
+          2.09675431e-01 -5.15216470e-01 -3.66772711e-01  7.58844376e-01
+          1.54991865e-01  7.74266362e-01  6.24065757e-01  5.13974190e-01
+         -6.83982372e-01 -6.56754971e-01  4.63513374e-01  6.58907890e-02
+         -9.50032830e-01  4.21387672e-01  5.38747668e-01  5.03276825e-01
+         -2.98748672e-01  2.21444249e-01  6.14906907e-01 -1.94212794e-02
+          4.06216025e-01 -7.67942488e-01  8.97767067e-01  2.10300326e-01
+         -8.67514491e-01 -1.64918661e-01 -2.69064307e-02  2.86478281e-01
+          8.04030418e-01 -6.54453516e-01  6.53476715e-01 -8.96017194e-01
+          6.80307150e-02  6.81815147e-02 -5.82813442e-01  5.30941486e-02
+         -5.23071289e-01 -1.62867963e-01  9.54412341e-01  6.54406548e-01
+         -2.12406814e-01  3.24193716e-01 -7.89011240e-01  8.63596797e-01
+         -4.18865025e-01 -7.47995794e-01 -1.14605725e-01 -6.35073304e-01
+          4.81444001e-01 -4.91523147e-02 -2.77019024e-01 -5.72397470e-01
+          7.62443781e-01  4.97193456e-01  7.52375722e-01 -2.69696653e-01
+         -3.24235082e-01 -5.60851455e-01 -6.07842565e-01  8.00901175e-01
+         -3.87970388e-01 -3.37806284e-01  4.06787515e-01  7.17872858e-01
+         -3.82181644e-01 -7.45852232e-01  6.85179234e-02  9.88216162e-01
+         -2.06407011e-01 -8.20196867e-01 -5.17504811e-02  6.00969791e-01
+         -4.78252113e-01  3.27993870e-01 -3.72696042e-01 -6.65528417e-01
+         -5.52845657e-01  5.43485165e-01  5.35373926e-01  8.80691290e-01
+          9.74319935e-01 -6.86308980e-01 -9.78507757e-01  2.60897279e-01
+          9.24082756e-01  3.17785501e-01  9.65938926e-01 -4.50683296e-01
+         -8.90631676e-01  6.13329887e-01 -2.38149107e-01 -6.88879371e-01
+         -5.38499117e-01 -4.44075406e-01 -1.85021162e-01 -6.72464967e-01
+         -3.56240571e-01  8.85679603e-01  4.75946426e-01  7.50034332e-01
+          3.85701537e-01 -3.96966875e-01 -4.52892661e-01 -1.78390443e-01
+         -9.95653749e-01 -5.41475058e-01 -3.79918635e-01 -3.71457517e-01
+         -9.59361315e-01 -9.36166048e-01 -1.16940737e-01 -7.58906484e-01
+         -8.79982769e-01 -7.65326440e-01 -2.01239645e-01 -5.87156355e-01
+         -1.88347757e-01  4.54273224e-02 -7.27409601e-01  3.60154510e-01
+         -8.28864038e-01  7.64127851e-01  5.29435754e-01 -6.47746503e-01
+          3.51334453e-01  2.00936317e-01  7.53122807e-01  7.05170989e-01
+          8.82480383e-01 -3.32014322e-01 -1.37729049e-02 -8.20771456e-02
+          3.04407597e-01 -7.61382818e-01  1.99941397e-02 -8.28573942e-01
+          7.52783060e-01  8.97383451e-01 -4.11781251e-01  3.38044882e-01
+         -7.20795751e-01 -2.21079886e-01  8.55613589e-01 -6.54779673e-01
+          7.85310745e-01 -9.37662482e-01  1.85588598e-01 -3.36365581e-01
+         -7.80646205e-02 -9.97743666e-01 -6.13194346e-01 -3.45861912e-03
+         -4.47239876e-01 -3.81604075e-01 -6.39963627e-01 -5.75309277e-01
+          5.08215308e-01 -5.61910629e-01 -8.66377354e-01 -4.92146909e-01
+         -8.51495743e-01 -6.55255616e-01 -8.85945559e-02  7.39341259e-01
+          6.40545130e-01  3.04773808e-01 -3.78293335e-01 -8.83819938e-01
+          6.61204696e-01  7.41141319e-01  9.74029541e-01  6.79791689e-01
+          2.75070786e-01 -1.84377730e-01  1.18703842e-02 -9.66475248e-01
+          7.89477825e-02 -9.12193060e-01 -8.37913156e-01  7.10146427e-01
+         -6.00268006e-01  2.60245800e-03 -2.46047378e-02  3.16137910e-01
+          1.27069831e-01  3.88100505e-01 -1.54687226e-01 -9.78497982e-01
+          9.13507938e-01 -8.92686665e-01  9.14333940e-01 -1.89369678e-01
+          2.66571164e-01 -9.93312418e-01 -5.18986583e-02 -1.60023510e-01
+          4.20776367e-01  4.82211351e-01  4.38664079e-01  2.53362894e-01
+         -8.11258912e-01  2.68855333e-01 -7.32808292e-01  7.13871002e-01
+         -8.54638934e-01 -6.25168085e-02  3.80077839e-01  3.98987412e-01
+          5.30418158e-02 -1.53213382e-01  5.94192624e-01  4.70384002e-01
+         -8.29802752e-02 -3.08644176e-02  2.16860533e-01 -2.71539748e-01
+          8.70650411e-01 -7.58307695e-01 -6.96539760e-01  4.43061948e-01
+         -6.27434671e-01  1.35552168e-01 -6.58249259e-02  5.73195457e-01
+         -3.90307307e-01  4.70719695e-01 -6.56128764e-01 -8.87612939e-01
+          5.99683404e-01 -8.40144515e-01 -7.10014939e-01  9.49736238e-01
+         -6.55507147e-01 -4.13612127e-01  3.42979074e-01 -1.62653923e-01
+          4.84187484e-01 -6.98660612e-02  4.41203117e-01 -5.60142279e-01
+          7.62640715e-01  9.50063109e-01  3.08178663e-01  8.56224895e-01
+          2.63843775e-01 -4.38151956e-02 -5.91379285e-01 -3.69008124e-01
+          5.00130653e-02  3.98483515e-01  2.18539834e-01  7.07177758e-01
+         -8.43350887e-01  7.95312405e-01  4.27992940e-01  4.82047319e-01
+         -9.18404877e-01  8.03529382e-01 -1.16002321e-01  6.19091034e-01
+          3.67972851e-01 -1.41845167e-01  3.96027446e-01 -3.28248143e-02
+         -9.50408280e-01 -6.48396730e-01 -2.70101428e-01 -3.15594256e-01
+          3.64963770e-01  8.70401144e-01  5.89007497e-01 -6.56296730e-01
+         -2.37226486e-04 -2.95014381e-01 -5.20517528e-01  4.49498177e-01
+         -4.79991376e-01  5.31483531e-01  5.53155065e-01  5.94815731e-01
+          4.26491857e-01  6.49937749e-01  9.43365335e-01 -1.11994386e-01
+         -7.99400389e-01 -9.33184505e-01 -7.69347429e-01 -7.60067284e-01
+         -6.75048053e-01  7.33408570e-01 -5.77250361e-01  1.76547766e-02
+         -6.88010693e-01 -5.56361079e-02  6.85680151e-01 -9.12218153e-01
+          1.43412948e-01  8.71813297e-02 -8.75220418e-01 -5.40480852e-01
+         -7.99667060e-01 -5.26794434e-01  5.10676980e-01  5.22365451e-01
+          6.54358149e-01 -7.21877098e-01 -2.11239159e-01  2.28980780e-02
+         -7.36089110e-01  4.42450762e-01  3.19341779e-01 -5.05629003e-01
+          4.91258025e-01 -9.96906877e-01  7.87584543e-01 -8.09504390e-02
+         -7.12766528e-01  2.29402900e-01  9.21841145e-01 -8.22155833e-01
+          1.03789091e-01 -4.52527583e-01 -3.25928569e-01 -1.06987476e-01
+          7.21096992e-03  3.99830699e-01 -2.61574984e-01  2.94853091e-01
+         -2.02227116e-01  1.13164425e-01 -6.20620966e-01 -5.97927690e-01
+         -9.60779667e-01 -9.99129832e-01  5.04732013e-01 -7.45508552e-01
+         -6.19607925e-01  4.24518466e-01 -9.63295519e-01 -9.78550315e-01
+          7.07167625e-01 -3.77286017e-01 -2.05217600e-02  9.45688128e-01
+         -7.30971634e-01 -1.35606527e-01 -5.51697195e-01 -7.72210360e-01
+         -9.73489106e-01 -7.79800773e-01  1.94546103e-01 -7.50928402e-01
+          3.70972037e-01 -2.12447047e-02 -7.86686599e-01  1.15815401e-02
+          8.93779874e-01 -2.24829614e-01  3.29992414e-01  9.89837527e-01
+         -7.89837122e-01 -2.08297789e-01 -2.88802683e-01  2.96773314e-01
+         -2.43840992e-01 -3.66266131e-01 -7.04082787e-01  7.31818914e-01
+          2.60645866e-01 -7.55411267e-01  1.44929051e-01 -1.87020719e-01
+         -4.04945612e-02  8.58988643e-01 -2.20663965e-01  4.34252739e-01
+          2.02065468e-01  3.66348386e-01  2.17484117e-01  7.61466980e-01
+         -2.26993084e-01  5.77005267e-01 -1.92396998e-01  9.06755447e-01
+          4.56406474e-01 -5.86432815e-02  9.83244419e-01 -5.81444740e-01
+          3.09627056e-01  4.01742697e-01 -8.50968003e-01 -8.26039910e-01
+          3.09500217e-01  6.89007521e-01 -5.07129610e-01 -2.91660726e-01
+          1.65825605e-01 -3.43815446e-01  6.62430525e-02 -5.76842189e-01
+         -2.95431554e-01 -8.72030854e-01 -6.35990620e-01 -8.91545236e-01
+          7.83996463e-01 -5.59067070e-01  5.05841255e-01 -1.74438715e-01
+         -2.87452579e-01  6.13281012e-01 -3.61062288e-01  3.54881287e-01
+          3.41673613e-01 -1.12431705e-01 -2.86146224e-01 -3.44573855e-02
+         -1.34558678e-02 -2.01104701e-01  7.10769773e-01  3.27732682e-01
+          1.96503639e-01 -8.35139275e-01  4.24418330e-01 -4.39880788e-01
+          5.73877096e-02  4.12298918e-01  2.05571294e-01 -4.90377128e-01
+         -7.42270112e-01 -2.71272182e-01  9.15815592e-01  3.50124717e-01
+          3.53193760e-01  1.75172091e-01  9.32340860e-01  6.42265081e-02
+         -6.25592589e-01 -7.92593837e-01  5.12435436e-02 -6.84880614e-01
+          4.39738631e-01  7.50981569e-01  2.08685398e-01 -8.98445845e-02
+         -6.31240010e-01 -3.12907696e-01  6.15587711e-01 -3.13798010e-01
+         -9.11999285e-01  4.45283890e-01  9.16394591e-01 -9.44932044e-01
+         -3.72841895e-01  9.10560966e-01 -6.13363743e-01  2.97250390e-01
+          8.45514774e-01 -3.91762614e-01 -6.25654221e-01  9.44291234e-01
+          2.49862671e-01 -5.67345440e-01 -8.65484476e-01  6.24655485e-02
+         -7.75918365e-01  7.49743938e-01  2.57197142e-01 -1.24282897e-01
+         -5.31091452e-01  4.17648196e-01 -8.83120000e-01 -2.02872217e-01
+         -3.67382884e-01  6.81950569e-01  7.38022327e-01 -6.85912609e-01
+          5.95031261e-01 -3.79217923e-01 -2.93800831e-01  6.59765720e-01
+         -5.61220884e-01  2.58696079e-01  9.28140163e-01  3.86509418e-01
+          5.81288218e-01  6.67914629e-01 -3.05202246e-01 -7.04951048e-01]
+        A-N-0-Conv.kernel_size = (5, 5)
+        A-N-0-Conv.kernel_size_nd = (5, 5)
+        A-N-0-Conv.num_groups = 1
+        A-N-0-Conv.num_output_maps = 32
+        A-N-0-Conv.padding = (2, 2)
+        A-N-0-Conv.padding_mode = PaddingMode.EXPLICIT_ROUND_DOWN
+        A-N-0-Conv.padding_nd = (2, 2)
+        A-N-0-Conv.post_padding = (2, 2)
+        A-N-0-Conv.pre_padding = (2, 2)
+        A-N-0-Conv.stride = (1, 1)
+        A-N-0-Conv.stride_nd = (1, 1)
+    
+    Layer 1    | A-N-1-Relu [Op: ActivationType.RELU]
+        {A-V-0-Conv [dtype=float32, shape=(-1, 32, 28, 28)]}
+         -> {A-V-1-Relu [dtype=float32, shape=(-1, 32, 28, 28)]}
+        ---- Attributes ----
+        A-N-1-Relu.alpha = 0.0
+        A-N-1-Relu.beta = 0.0
+    
+    Layer 2    | A-N-2-MaxPool [Op: PoolingType.MAX]
+        {A-V-1-Relu [dtype=float32, shape=(-1, 32, 28, 28)]}
+         -> {A-V-2-MaxPool [dtype=float32, shape=(-1, 32, 14, 14)]}
+        ---- Attributes ----
+        A-N-2-MaxPool.average_count_excludes_padding = True
+        A-N-2-MaxPool.blend_factor = 0.0
+        A-N-2-MaxPool.padding = (0, 0)
+        A-N-2-MaxPool.padding_mode = PaddingMode.EXPLICIT_ROUND_DOWN
+        A-N-2-MaxPool.padding_nd = (0, 0)
+        A-N-2-MaxPool.post_padding = (0, 0)
+        A-N-2-MaxPool.pre_padding = (0, 0)
+        A-N-2-MaxPool.stride = (2, 2)
+        A-N-2-MaxPool.stride_nd = (2, 2)
+        A-N-2-MaxPool.window_size = (2, 2)
+        A-N-2-MaxPool.window_size_nd = (2, 2)
+    
+    Layer 3    | A-N-3-Conv [Op: LayerType.CONVOLUTION]
+        {A-V-2-MaxPool [dtype=float32, shape=(-1, 32, 14, 14)]}
+         -> {A-V-3-Conv [dtype=float32, shape=(-1, 64, 14, 14)]}
+        ---- Attributes ----
+        A-N-3-Conv.bias = [-0.60472816 -0.11390257 -0.10394967 -0.6418265   0.715603   -0.9171859
+         -0.81369394  0.52655256 -0.34438044  0.8079027   0.886186   -0.8508985
+         -0.13370937 -0.91035223 -0.24208272  0.8933768   0.346205   -0.57601017
+          0.35516572 -0.09655356  0.9175931  -0.33429253  0.13353908  0.7213874
+          0.25410402 -0.4770338   0.88252926  0.40347862  0.8181908   0.6337434
+          0.0204941   0.32432055 -0.25978792  0.3567332  -0.51748115 -0.14481276
+          0.53341997 -0.3352347   0.6665      0.72221434  0.7325282  -0.9945862
+          0.6081147  -0.92615455  0.98969066 -0.9279163  -0.9256757   0.33517742
+          0.75332665  0.16999066  0.59906685 -0.73753244 -0.27713203  0.9605198
+          0.6688169  -0.15274435 -0.63527286  0.14159727 -0.5676404  -0.4206158
+          0.48122013  0.27832294 -0.3625316   0.1910249 ]
+        A-N-3-Conv.dilation = (1, 1)
+        A-N-3-Conv.dilation_nd = (1, 1)
+        A-N-3-Conv.kernel = [-0.0846656  -0.38903075 -0.6537256  ...  0.83570504 -0.8765188
+          0.75318086]
+        A-N-3-Conv.kernel_size = (5, 5)
+        A-N-3-Conv.kernel_size_nd = (5, 5)
+        A-N-3-Conv.num_groups = 1
+        A-N-3-Conv.num_output_maps = 64
+        A-N-3-Conv.padding = (2, 2)
+        A-N-3-Conv.padding_mode = PaddingMode.EXPLICIT_ROUND_DOWN
+        A-N-3-Conv.padding_nd = (2, 2)
+        A-N-3-Conv.post_padding = (2, 2)
+        A-N-3-Conv.pre_padding = (2, 2)
+        A-N-3-Conv.stride = (1, 1)
+        A-N-3-Conv.stride_nd = (1, 1)
+    
+    Layer 4    | A-N-4-Relu [Op: ActivationType.RELU]
+        {A-V-3-Conv [dtype=float32, shape=(-1, 64, 14, 14)]}
+         -> {A-V-4-Relu [dtype=float32, shape=(-1, 64, 14, 14)]}
+        ---- Attributes ----
+        A-N-4-Relu.alpha = 0.0
+        A-N-4-Relu.beta = 0.0
+    
+    Layer 5    | A-N-5-MaxPool [Op: PoolingType.MAX]
+        {A-V-4-Relu [dtype=float32, shape=(-1, 64, 14, 14)]}
+         -> {A-V-5-MaxPool [dtype=float32, shape=(-1, 64, 7, 7)]}
+        ---- Attributes ----
+        A-N-5-MaxPool.average_count_excludes_padding = True
+        A-N-5-MaxPool.blend_factor = 0.0
+        A-N-5-MaxPool.padding = (0, 0)
+        A-N-5-MaxPool.padding_mode = PaddingMode.EXPLICIT_ROUND_DOWN
+        A-N-5-MaxPool.padding_nd = (0, 0)
+        A-N-5-MaxPool.post_padding = (0, 0)
+        A-N-5-MaxPool.pre_padding = (0, 0)
+        A-N-5-MaxPool.stride = (2, 2)
+        A-N-5-MaxPool.stride_nd = (2, 2)
+        A-N-5-MaxPool.window_size = (2, 2)
+        A-N-5-MaxPool.window_size_nd = (2, 2)
+    
+    Layer 6    | A-N-6-Transpose [Op: LayerType.SHUFFLE]
+        {A-V-5-MaxPool [dtype=float32, shape=(-1, 64, 7, 7)]}
+         -> {A-V-6-Transpose [dtype=float32, shape=(-1, 7, 7, 64)]}
+        ---- Attributes ----
+        A-N-6-Transpose.first_transpose = (0, 2, 3, 1, 4, 5, 6, 7)
+        A-N-6-Transpose.reshape_dims = (0)
+        A-N-6-Transpose.second_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        A-N-6-Transpose.zero_is_placeholder = True
+    
+    Layer 7    | A-N-7-Reshape [Op: LayerType.SHUFFLE]
+        {A-V-6-Transpose [dtype=float32, shape=(-1, 7, 7, 64)]}
+         -> {A-V-7-Reshape [dtype=float32, shape=(-1, 3136)]}
+        ---- Attributes ----
+        A-N-7-Reshape.first_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        A-N-7-Reshape.reshape_dims = (-1, 3136)
+        A-N-7-Reshape.second_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        A-N-7-Reshape.zero_is_placeholder = True
+    
+    Layer 8    | constant3136x1024 [Op: LayerType.CONSTANT]
+        {} -> {(Unnamed Layer* 8) [Constant]_output [dtype=float32, shape=(3136, 1024)]}
+        ---- Attributes ----
+        constant3136x1024.shape = (3136, 1024)
+        constant3136x1024.weights = [ 0.7447051  -0.6862104   0.4022751  ...  0.47984362 -0.3760866
+         -0.26887572]
+    
+    Layer 9    | A-N-8-MatMul [Op: LayerType.MATRIX_MULTIPLY]
+        {A-V-7-Reshape [dtype=float32, shape=(-1, 3136)],
+         (Unnamed Layer* 8) [Constant]_output [dtype=float32, shape=(3136, 1024)]}
+         -> {A-V-8-MatMul [dtype=float32, shape=(-1, 1024)]}
+        ---- Attributes ----
+        A-N-8-MatMul.op0 = MatrixOperation.NONE
+        A-N-8-MatMul.op1 = MatrixOperation.NONE
+    
+    Layer 10   | constant1024 [Op: LayerType.CONSTANT]
+        {} -> {(Unnamed Layer* 10) [Constant]_output [dtype=float32, shape=(1024,)]}
+        ---- Attributes ----
+        constant1024.shape = (1024,)
+        constant1024.weights = [-0.7238914   0.773762    0.2902217  ...  0.17677236 -0.4135279
+         -0.42438096]
+    
+    Layer 11   | (Unnamed Layer* 11) [Shuffle] [Op: LayerType.SHUFFLE]
+        {(Unnamed Layer* 10) [Constant]_output [dtype=float32, shape=(1024,)]}
+         -> {(Unnamed Layer* 11) [Shuffle]_output [dtype=float32, shape=(1, 1024)]}
+        ---- Attributes ----
+        (Unnamed Layer* 11) [Shuffle].first_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        (Unnamed Layer* 11) [Shuffle].reshape_dims = (1, 1024)
+        (Unnamed Layer* 11) [Shuffle].second_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        (Unnamed Layer* 11) [Shuffle].zero_is_placeholder = False
+    
+    Layer 12   | A-N-9-Add [Op: LayerType.ELEMENTWISE]
+        {A-V-8-MatMul [dtype=float32, shape=(-1, 1024)],
+         (Unnamed Layer* 11) [Shuffle]_output [dtype=float32, shape=(1, 1024)]}
+         -> {A-V-9-Add [dtype=float32, shape=(-1, 1024)]}
+        ---- Attributes ----
+        A-N-9-Add.op = ElementWiseOperation.SUM
+    
+    Layer 13   | A-N-10-Relu [Op: ActivationType.RELU]
+        {A-V-9-Add [dtype=float32, shape=(-1, 1024)]}
+         -> {A-V-10-Relu [dtype=float32, shape=(-1, 1024)]}
+        ---- Attributes ----
+        A-N-10-Relu.alpha = 0.0
+        A-N-10-Relu.beta = 0.0
+    
+    Layer 14   | constant1024x10 [Op: LayerType.CONSTANT]
+        {} -> {(Unnamed Layer* 14) [Constant]_output [dtype=float32, shape=(1024, 10)]}
+        ---- Attributes ----
+        constant1024x10.shape = (1024, 10)
+        constant1024x10.weights = [ 0.02865732 -0.69687235 -0.6764704  ... -0.571048   -0.1312033
+         -0.892924  ]
+    
+    Layer 15   | A-N-11-MatMul [Op: LayerType.MATRIX_MULTIPLY]
+        {A-V-10-Relu [dtype=float32, shape=(-1, 1024)],
+         (Unnamed Layer* 14) [Constant]_output [dtype=float32, shape=(1024, 10)]}
+         -> {A-V-11-MatMul [dtype=float32, shape=(-1, 10)]}
+        ---- Attributes ----
+        A-N-11-MatMul.op0 = MatrixOperation.NONE
+        A-N-11-MatMul.op1 = MatrixOperation.NONE
+    
+    Layer 16   | constant10 [Op: LayerType.CONSTANT]
+        {} -> {(Unnamed Layer* 16) [Constant]_output [dtype=float32, shape=(10,)]}
+        ---- Attributes ----
+        constant10.shape = (10,)
+        constant10.weights = [-0.8369716   0.14250124 -0.7332682  -0.46022236 -0.84475243  0.29508197
+         -0.59146374 -0.4973126  -0.34899616 -0.26764566]
+    
+    Layer 17   | (Unnamed Layer* 17) [Shuffle] [Op: LayerType.SHUFFLE]
+        {(Unnamed Layer* 16) [Constant]_output [dtype=float32, shape=(10,)]}
+         -> {(Unnamed Layer* 17) [Shuffle]_output [dtype=float32, shape=(1, 10)]}
+        ---- Attributes ----
+        (Unnamed Layer* 17) [Shuffle].first_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        (Unnamed Layer* 17) [Shuffle].reshape_dims = (1, 10)
+        (Unnamed Layer* 17) [Shuffle].second_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        (Unnamed Layer* 17) [Shuffle].zero_is_placeholder = False
+    
+    Layer 18   | A-N-12-Add [Op: LayerType.ELEMENTWISE]
+        {A-V-11-MatMul [dtype=float32, shape=(-1, 10)],
+         (Unnamed Layer* 17) [Shuffle]_output [dtype=float32, shape=(1, 10)]}
+         -> {A-V-12-Add [dtype=float32, shape=(-1, 10)]}
+        ---- Attributes ----
+        A-N-12-Add.op = ElementWiseOperation.SUM
+    
+    Layer 19   | (Unnamed Layer* 19) [Constant] [Op: LayerType.CONSTANT]
+        {} -> {(Unnamed Layer* 19) [Constant]_output [dtype=int32, shape=(1,)]}
+        ---- Attributes ----
+        (Unnamed Layer* 19) [Constant].shape = (1,)
+        (Unnamed Layer* 19) [Constant].weights = [0]
+    
+    Layer 20   | (Unnamed Layer* 20) [Shape] [Op: LayerType.SHAPE]
+        {A-V-12-Add [dtype=float32, shape=(-1, 10)]}
+         -> {(Unnamed Layer* 20) [Shape]_output [dtype=int32, shape=(2,)]}
+    
+    Layer 21   | (Unnamed Layer* 21) [Gather] [Op: LayerType.GATHER]
+        {(Unnamed Layer* 20) [Shape]_output [dtype=int32, shape=(2,)],
+         (Unnamed Layer* 19) [Constant]_output [dtype=int32, shape=(1,)]}
+         -> {(Unnamed Layer* 21) [Gather]_output [dtype=int32, shape=(1,)]}
+        ---- Attributes ----
+        (Unnamed Layer* 21) [Gather].axis = 0
+        (Unnamed Layer* 21) [Gather].mode = GatherMode.DEFAULT
+        (Unnamed Layer* 21) [Gather].num_elementwise_dims = 0
+    
+    Layer 22   | (Unnamed Layer* 22) [Constant] [Op: LayerType.CONSTANT]
+        {} -> {(Unnamed Layer* 22) [Constant]_output [dtype=int32, shape=(1,)]}
+        ---- Attributes ----
+        (Unnamed Layer* 22) [Constant].shape = (1,)
+        (Unnamed Layer* 22) [Constant].weights = [10]
+    
+    Layer 23   | (Unnamed Layer* 23) [Concatenation] [Op: LayerType.CONCATENATION]
+        {(Unnamed Layer* 21) [Gather]_output [dtype=int32, shape=(1,)],
+         (Unnamed Layer* 22) [Constant]_output [dtype=int32, shape=(1,)]}
+         -> {(Unnamed Layer* 23) [Concatenation]_output [dtype=int32, shape=(2,)]}
+        ---- Attributes ----
+        (Unnamed Layer* 23) [Concatenation].axis = 0
+    
+    Layer 24   | (Unnamed Layer* 24) [Shuffle] [Op: LayerType.SHUFFLE]
+        {A-V-12-Add [dtype=float32, shape=(-1, 10)],
+         (Unnamed Layer* 23) [Concatenation]_output [dtype=int32, shape=(2,)]}
+         -> {(Unnamed Layer* 24) [Shuffle]_output [dtype=float32, shape=(-1, 10)]}
+        ---- Attributes ----
+        (Unnamed Layer* 24) [Shuffle].first_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        (Unnamed Layer* 24) [Shuffle].reshape_dims = (0)
+        (Unnamed Layer* 24) [Shuffle].second_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        (Unnamed Layer* 24) [Shuffle].zero_is_placeholder = False
+    
+    Layer 25   | A-N-13-Softmax [Op: LayerType.SOFTMAX]
+        {(Unnamed Layer* 24) [Shuffle]_output [dtype=float32, shape=(-1, 10)]}
+         -> {(Unnamed Layer* 25) [Softmax]_output [dtype=float32, shape=(-1, 10)]}
+        ---- Attributes ----
+        A-N-13-Softmax.axes = 2
+    
+    Layer 26   | (Unnamed Layer* 26) [Shuffle] [Op: LayerType.SHUFFLE]
+        {(Unnamed Layer* 25) [Softmax]_output [dtype=float32, shape=(-1, 10)],
+         (Unnamed Layer* 27) [Shape]_output [dtype=int32, shape=(2,)]}
+         -> {A-V-13-Softmax [dtype=float32, shape=(-1, 10)]}
+        ---- Attributes ----
+        (Unnamed Layer* 26) [Shuffle].first_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        (Unnamed Layer* 26) [Shuffle].reshape_dims = (0)
+        (Unnamed Layer* 26) [Shuffle].second_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        (Unnamed Layer* 26) [Shuffle].zero_is_placeholder = False
+    
+    Layer 27   | (Unnamed Layer* 27) [Shape] [Op: LayerType.SHAPE]
+        {A-V-12-Add [dtype=float32, shape=(-1, 10)]}
+         -> {(Unnamed Layer* 27) [Shape]_output [dtype=int32, shape=(2,)]}
+    
+    Layer 28   | A-N-14-ArgMax [Op: LayerType.TOPK]
+        {A-V-13-Softmax [dtype=float32, shape=(-1, 10)]}
+         -> {(Unnamed Layer* 28) [TopK]_output_1 [dtype=float32, shape=(-1, 1)],
+             (Unnamed Layer* 28) [TopK]_output_2 [dtype=int32, shape=(-1, 1)]}
+        ---- Attributes ----
+        A-N-14-ArgMax.axes = 2
+        A-N-14-ArgMax.k = 1
+        A-N-14-ArgMax.op = TopKOperation.MAX
+    
+    Layer 29   | (Unnamed Layer* 29) [Constant] [Op: LayerType.CONSTANT]
+        {} -> {(Unnamed Layer* 29) [Constant]_output [dtype=int32, shape=(1,)]}
+        ---- Attributes ----
+        (Unnamed Layer* 29) [Constant].shape = (1,)
+        (Unnamed Layer* 29) [Constant].weights = [0]
+    
+    Layer 30   | (Unnamed Layer* 30) [Shape] [Op: LayerType.SHAPE]
+        {(Unnamed Layer* 28) [TopK]_output_2 [dtype=int32, shape=(-1, 1)]}
+         -> {(Unnamed Layer* 30) [Shape]_output [dtype=int32, shape=(2,)]}
+    
+    Layer 31   | (Unnamed Layer* 31) [Gather] [Op: LayerType.GATHER]
+        {(Unnamed Layer* 30) [Shape]_output [dtype=int32, shape=(2,)],
+         (Unnamed Layer* 29) [Constant]_output [dtype=int32, shape=(1,)]}
+         -> {(Unnamed Layer* 31) [Gather]_output [dtype=int32, shape=(1,)]}
+        ---- Attributes ----
+        (Unnamed Layer* 31) [Gather].axis = 0
+        (Unnamed Layer* 31) [Gather].mode = GatherMode.DEFAULT
+        (Unnamed Layer* 31) [Gather].num_elementwise_dims = 0
+    
+    Layer 32   | (Unnamed Layer* 32) [Shuffle] [Op: LayerType.SHUFFLE]
+        {(Unnamed Layer* 28) [TopK]_output_2 [dtype=int32, shape=(-1, 1)],
+         (Unnamed Layer* 31) [Gather]_output [dtype=int32, shape=(1,)]}
+         -> {A-V-14-ArgMax [dtype=int32, shape=(-1,)]}
+        ---- Attributes ----
+        (Unnamed Layer* 32) [Shuffle].first_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        (Unnamed Layer* 32) [Shuffle].reshape_dims = (0)
+        (Unnamed Layer* 32) [Shuffle].second_transpose = (0, 1, 2, 3, 4, 5, 6, 7)
+        (Unnamed Layer* 32) [Shuffle].zero_is_placeholder = False

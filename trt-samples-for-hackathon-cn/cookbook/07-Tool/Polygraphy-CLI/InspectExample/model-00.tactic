@@ -1,0 +1,355 @@
+{
+    "replay": {
+        "A-N-0-Conv + A-N-1-Relu": {
+            "implementation": 2147483657,
+            "tactic": 7144526460361122478,
+            "inputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        784,
+                        784,
+                        28,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "outputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        25088,
+                        784,
+                        28,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "polygraphy_class": "Algorithm"
+        },
+        "A-N-2-MaxPool": {
+            "implementation": 2147483695,
+            "tactic": 2883132114461251834,
+            "inputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        25088,
+                        784,
+                        28,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "outputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        6272,
+                        196,
+                        14,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "polygraphy_class": "Algorithm"
+        },
+        "A-N-3-Conv + A-N-4-Relu": {
+            "implementation": 2147483657,
+            "tactic": -9153228964338181824,
+            "inputs": [
+                {
+                    "tensor_format": "TensorFormat.HWC",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        6272,
+                        1,
+                        448,
+                        32
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "outputs": [
+                {
+                    "tensor_format": "TensorFormat.HWC",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        12544,
+                        1,
+                        896,
+                        64
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "polygraphy_class": "Algorithm"
+        },
+        "A-N-5-MaxPool": {
+            "implementation": 2147483695,
+            "tactic": -8970372468295098745,
+            "inputs": [
+                {
+                    "tensor_format": "TensorFormat.CHW4",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        3136,
+                        1,
+                        224,
+                        16
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "outputs": [
+                {
+                    "tensor_format": "TensorFormat.CHW4",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        784,
+                        1,
+                        112,
+                        16
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "polygraphy_class": "Algorithm"
+        },
+        "A-N-6-Transpose + A-N-7-Reshape + reshape_before_A-N-8-MatMul": {
+            "implementation": 2147483661,
+            "tactic": 0,
+            "inputs": [
+                {
+                    "tensor_format": "TensorFormat.HWC",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        3136,
+                        1,
+                        448,
+                        64
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "outputs": [
+                {
+                    "tensor_format": "TensorFormat.HWC",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        3136,
+                        1,
+                        3136,
+                        3136
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "polygraphy_class": "Algorithm"
+        },
+        "A-N-8-MatMul + A-N-10-Relu": {
+            "implementation": 2147483689,
+            "tactic": 1,
+            "inputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        3136,
+                        1,
+                        1,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "outputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        1024,
+                        1,
+                        1,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "polygraphy_class": "Algorithm"
+        },
+        "A-N-11-MatMul": {
+            "implementation": 2147483648,
+            "tactic": 1,
+            "inputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        1024,
+                        1,
+                        1,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "outputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        10,
+                        1,
+                        1,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "polygraphy_class": "Algorithm"
+        },
+        "reshape_after_A-N-11-MatMul": {
+            "implementation": 2147483661,
+            "tactic": 0,
+            "inputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        10,
+                        1,
+                        1,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "outputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        10,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "polygraphy_class": "Algorithm"
+        },
+        "A-N-13-Softmax + A-N-14-ArgMax": {
+            "implementation": 2147483682,
+            "tactic": 1001,
+            "inputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        10,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "outputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.FLOAT",
+                    "strides": [
+                        1,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                },
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.INT32",
+                    "strides": [
+                        1,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "polygraphy_class": "Algorithm"
+        },
+        "(Unnamed Layer* 32) [Shuffle]": {
+            "implementation": 2147483661,
+            "tactic": 0,
+            "inputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.INT32",
+                    "strides": [
+                        1,
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "outputs": [
+                {
+                    "tensor_format": "TensorFormat.LINEAR",
+                    "dtype": "DataType.INT32",
+                    "strides": [
+                        1
+                    ],
+                    "vectorized_dim": null,
+                    "components_per_element": null,
+                    "polygraphy_class": "TensorInfo"
+                }
+            ],
+            "polygraphy_class": "Algorithm"
+        }
+    },
+    "polygraphy_class": "TacticReplayData"
+}

@@ -116,5 +116,4 @@ data = cv2.imread(inferenceImage, cv2.IMREAD_GRAYSCALE).reshape(1, 1, 28, 28).as
 inputData = t.from_numpy(data).cuda()
 outputData = trtModel(inputData)  # run inference in TensorRT
 print(t.argmax(t.softmax(outputData, dim=1), dim=1))
-
 t.jit.save(trtModel, tsFile)  # save TRT embedded Torchscript as .ts file

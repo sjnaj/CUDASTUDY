@@ -1,12 +1,122 @@
 conda clean -p
 conda clean -t
 pip cache purge
- sudo du -h xx | sort -h
+sudo du -h xx | sort -h
 
- ascontiguousarray 函数将一个内存不连续存储的数组转换为内存连续存储的数组
- ONNX(angx)：open neural network exchange
+np.ascontiguousarray 函数将一个内存不连续存储的数组转换为内存连续存储的数组
+ONNX(angkesi)：open neural network exchange
 
 不支持9，改为8
 /home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnx_graphsurgeon/exporters/onnx_exporter.py:181:    model.ir_version=8
 
-onnx_graphsurgeon
+/usr/local/cuda/bin/nvcc -g main.cpp yolo.cu infer.cu -G -UDEBUG -Xcompiler -fPIC -use_fast_math -o main -I /home/fengsc/cuda-samples-11.6/Common -I /home/fengsc/cuda-samples-11.6 -I /home/fengsc/CUDASTUDY -I /usr/local/cuda/include -L /usr/local/cuda/lib64 -I /home/fengsc/cuda-samples-11.6/parallelprogrammingbook/include -I /usr/local/include/opencv4 -I /usr/local/include -I /usr/local/lib -I /home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/include -I /usr/local/TensorRT-8.5.1.7/include -I /usr/include/x86_64-linux-gnu -I /usr/lib/x86_64-linux-gnu  "-lglut -lGLU -lGL" -l cudart -l cublas -l cudnn -l curand -l nvinfer -l nvinfer_plugin -l nvonnxparser -l opencv_core -l opencv_videoio -l opencv_highgui -l opencv_imgproc -l opencv_imgcodecs -l dl -l pthread -D_MWAITXINTRIN_H_INCLUDED -std c++14
+
+
+浮点模型 : 模型的权重和激活均为浮点类型
+
+量化模型 : 均为量化类型
+
+训练后量化 : 简称 PTQ（Post Training Quantization）
+/home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/04-BuildEngineByONNXParser/pyTorch-ONNX-TensorRT/main.py
+
+
+量化校准（标定）
+calibration：https://zhuanlan.zhihu.com/p/516116539
+Nvidia calibration:
+In post-training quantization, TensorRT computes a scale value for each tensor in the network. 
+This process, called calibration, requires you to supply representative input data on which TensorRT runs the network to collect statistics for each activation tensor.
+
+IInt8MinMaxCalibrator 和 IInt8EntropyCalibrator2，前者适用于 NLP 任务，后者适用于 CNN 任务
+
+先在一个校准数据集上跑一遍原FP32的模型；
+然后，对每一层都收集激活值的直方图，并生成在不同阈值下的饱和量化分布；
+最后，找出使得KL散度最小的那个阈值T，即为所求。
+
+
+静态量化感知训练 : 简称 QAT（static quantization aware training）
+利用pytorch_quantization.nn搭建模型训练
+/home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/04-BuildEngineByONNXParser/pyTorch-ONNX-TensorRT-QAT/main.py
+
+.pt->onnx->Parser(Builder/trtexec)->engine(serialize)->engine(deserialize)->context
+
+/home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/05-Plugin/UseONNXParserAndPlugin-pyTorch
+
+batchedNMSPlugin 
+
+Timing Cache:为了减少构建器时间，TensorRT 创建了一个层时序缓存，以在构建器阶段保存层分析信息。
+
+优化单次引擎构建时间（模型内多个同参数的算子）
+➢ 优化多次引擎构建时间（debug、参数更新后重新构建）
+➢ 优化同环境下多个引擎构建时间（跨 builder 可用）
+➢ 用于反复生成一模一样的引擎
+➢ 要点
+➢ 类似引擎序列化反序列化，将 Timing Cache 保存出来下次用
+➢ 类似 .engine，不可跨平台和开发环境使用
+
+
+添加plugin两种方式，trt或者onnx_graphsurgeon
+
+ registry = trt.get_plugin_registry()
+            assert(registry)
+            creator = registry.get_plugin_creator("EfficientNMS_TRT", "1")
+            assert(creator)
+            fc = []
+            fc.append(trt.PluginField("background_class", np.array([-1], dtype=np.int32), trt.PluginFieldType.INT32))
+            fc.append(trt.PluginField("max_output_boxes", np.array([max_det], dtype=np.int32), trt.PluginFieldType.INT32))
+            fc.append(trt.PluginField("score_threshold", np.array([conf_thres], dtype=np.float32), trt.PluginFieldType.FLOAT32))
+            fc.append(trt.PluginField("iou_threshold", np.array([iou_thres], dtype=np.float32), trt.PluginFieldType.FLOAT32))
+            fc.append(trt.PluginField("box_coding", np.array([1], dtype=np.int32), trt.PluginFieldType.INT32))
+            fc.append(trt.PluginField("score_activation", np.array([0], dtype=np.int32), trt.PluginFieldType.INT32))
+            
+            fc = trt.PluginFieldCollection(fc) 
+            nms_layer = creator.create_plugin("nms_layer", fc)
+
+            layer = self.network.add_plugin_v2([boxes.get_output(0), scores.get_output(0)], nms_layer)
+            layer.get_output(0).name = "num"
+            layer.get_output(1).name = "boxes"
+            layer.get_output(2).name = "scores"
+            layer.get_output(3).name = "classes"
+
+
+    for node in graph.nodes:
+    if node.op == "Add":
+        scalar = float(node.i(1).attrs["value"].values)
+        pluginV = gs.Variable("MyAddPluginVariable-%d" % nPlugin, np.dtype(np.float32), None)
+        pluginN = gs.Node("AddScalar", "MyAddPluginNode-%d" % nPlugin, inputs=[node.inputs[0]], outputs=[pluginV], attrs={"scalar": float(scalar)})
+        graph.nodes.append(pluginN)
+        node.o().inputs[0] = pluginV
+        node.outputs.clear()
+        nPlugin += 1
+
+graph.cleanup()
+
+/home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/01-SimpleDemo/TensorRT8.5/main.py
+
+onnx模型建立  torch接口，onnx_graphsurgeon搭建
+
+trt模型建立  手动建立，onnx_parse,torch接口（troch.jit.trace）
+
+添加插件  ：trt模型上添加，onnx模型上添加：05-Plugin/UseONNXParserAndPlugin-pyTorch/main.py
+
+插件框架  ：
+
+trt模型保存（build_serialized_network）
+
+trt模型加载（deserialize_cuda_engine），torch接口（torch_tensorrt.compile）
+
+trt模型执行：  配置输入输出缓存（alloc，cpy）->createExecutionContext()->enqueueV3（c++） ，execute_async_v3（python）->收集结果（cpy，free）
+
+V2: replacement of enqueue, support explict batch. is deprecated now.
+V3: latest api, support data dependent shape, recommend to use now.
+
+NMS利用GPU优化：1，将模型输出传入gpu进行后处理  2，在模型输出上插入插件，实现端到端，免去后处理。
+
+fp16，int8，
+1, 3, 640, 640
+python export.py -o /home/fengsc/CUDASTUDY/Yolo_TensorRt/yolov8n.onnx -p int8 -e yolov8n_int8.engine --end2end --v8 --calib_input ./src/
+
+查看信息
+trtexec --verbose --profilingVerbosity=detailed --noDataTransfers --useCudaGraph --separateProfileRun --useSpinWait --loadEngine=./model/model.plan --exportProfile=./model/profile.json --exportTimes=./model/profile.timing.json --exportLayerInfo=./model/graph.json --plugins=/home/fengsc/CUDASTUDY/Yolo_TensorRt/AddScalar/AddScalarPlugin.so
+python trt.py -e /home/fengsc/CUDASTUDY/Yolo_TensorRt/TensorRT-For-YOLO-Series/yolov8n_int8.engine -i /home/fengsc/CUDASTUDY/Yolo_TensorRt/TensorRT-For-YOLO-Series/src/group.jpg -o /home/fengsc/CUDASTUDY/Yolo_TensorRt/TensorRT-For-YOLO-Series/src/res.jpg --end2end 
+
+自定义插件，生产者消费者

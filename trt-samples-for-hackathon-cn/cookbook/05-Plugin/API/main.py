@@ -36,7 +36,7 @@ def getAddScalarPlugin(scalar):
             return c.create_plugin(c.name, trt.PluginFieldCollection(parameterList))
     return None
 
-os.chdir("/w/gitlab/tensorrt-cookbook/05-Plugin/API/")
+os.chdir("/home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/05-Plugin/API")
 
 # Load default plugin creators
 logger = trt.Logger(trt.Logger.ERROR)
@@ -47,7 +47,7 @@ print("Count of default plugin creators = %d" % len(pluginRegistry.plugin_creato
 
 # Attributions of Plugin Registry
 print("pluginRegistry.error_recorder =", pluginRegistry.error_recorder)  # ErrorRecorder can be set into EngineInspector, usage of ErrorRecorder refer to 02-API/ErrorRecorder
-pluginRegistry.parent_search_enabled = True  # whether search plugin creators in parent directory, default value is True
+# pluginRegistry.parent_search_enabled = True  # whether search plugin creators in parent directory, default value is True
 
 # Load local plugin creators
 for soFile in glob("./*.so"):
@@ -56,6 +56,8 @@ for soFile in glob("./*.so"):
     else:  # use TensorRT API, but there are some problems, do not use this temporarily
         handle = pluginRegistry.load_library(soFile)
         #pluginRegistry.deregister_library(handle)  # deregiste the library
+        
+#64->65
 print("Count of total plugin creators = %d" % len(pluginRegistry.plugin_creator_list))  # one more plugin creator "AddScalar" added
 
 #pluginRegistry.deregister_library(?)  # deregiste the library
@@ -78,6 +80,7 @@ for creator in pluginRegistry.plugin_creator_list:
 
         # feed the PluginCreator with parameters
         pluginFieldCollection = trt.PluginFieldCollection()
+        #只有一个参数
         pluginField = trt.PluginField("scalar", np.float32(1.0), trt.PluginFieldType.FLOAT32)
         # tensorrt.PluginFieldType: FLOAT16, FLOAT32, FLOAT64, INT8, INT16, INT32, CHAR, DIMS, UNKNOWN
         print(pluginField.name, pluginField.type, pluginField.size, pluginField.data)

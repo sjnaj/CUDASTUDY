@@ -142,8 +142,10 @@ def report_card_table_view(plan: EnginePlan):
             display_df(clean_for_display(plan.df))
         else:
             df = plan.get_layers_by_type(choice)
+            t1=df["latency.pct_time"].sum()
+            t2=df["latency.avg_time"].sum()
             print(f"There are {len(df)} {choice} layers which account for"
-                  f"{df["latency.pct_time"].sum(): .2f}% ({df["latency.avg_time"].sum(): .5f} ms) of the overall latency.")
+                  f"{t1: .2f}% ({t2: .5f} ms) of the overall latency.")
             display_df(clean_for_display(df))
 
     types = ["All"] + list(set(plan.df["type"]))

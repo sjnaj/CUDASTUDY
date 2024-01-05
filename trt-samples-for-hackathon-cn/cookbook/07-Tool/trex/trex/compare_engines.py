@@ -438,8 +438,8 @@ def compare_engines_layer_latencies(plan1: EnginePlan, plan2: EnginePlan, thresh
         # Display a bar diagram comparison
         layer_type = None if choice == "All" else choice
         df1, df2 = aligned_layers(plan1, plan2, matched_indices_pairs, layer_type)
-
-        latency_str = lambda name, df: f"\n\t{name}: {df["latency.avg_time"].sum():.3f} ms"
+        t=df["latency.avg_time"].sum()
+        latency_str = lambda name, df: f"\n\t{name}: {t:.3f} ms"
         print(f"Latencies:{latency_str(plan1.name, df1)}{latency_str(plan2.name, df2)}")
 
         d = {plan1.name: df1, plan2.name: df2}
@@ -492,5 +492,6 @@ def compare_engines_layer_details(
 
     matched_indices_pairs = match_layers(plan1, plan2, exact_matching=True)
     df = aligned_merge_plans(plan1, plan2, matched_indices_pairs)
-    dropdown_choices = {f"{t}: {df.iloc[t]["type"]}": t for t in range(len(df))}
+    x=df.iloc[t]["type"]
+    dropdown_choices = {f"{t}: {x}": t for t in range(len(df))}
     InteractiveDiagram(render_diagram, dropdown_choices, "Dataframe")

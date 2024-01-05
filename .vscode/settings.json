@@ -64,7 +64,20 @@
         "*.inc": "cpp",
         "core": "cpp",
         "lu": "cpp",
-        "bitset": "cpp"
+        "bitset": "cpp",
+        "any": "cpp",
+        "forward_list": "cpp",
+        "unordered_set": "cpp",
+        "scoped_allocator": "cpp",
+        "shared_mutex": "cpp",
+        "variant": "cpp",
+        "regex": "cpp",
+        "hash_map": "cpp",
+        "hash_set": "cpp",
+        "codecvt": "cpp",
+        "csignal": "cpp",
+        "typeindex": "cpp",
+        "valarray": "cpp"
     },
     "git.ignoreLimitWarning": true
 }

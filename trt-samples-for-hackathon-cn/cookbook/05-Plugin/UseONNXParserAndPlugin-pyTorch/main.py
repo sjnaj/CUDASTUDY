@@ -87,7 +87,6 @@ for node in graph.nodes:
         graph.nodes.append(pluginN)
         node.o().inputs[0] = pluginV
         node.outputs.clear()
-
         nPlugin += 1
 
 graph.cleanup()

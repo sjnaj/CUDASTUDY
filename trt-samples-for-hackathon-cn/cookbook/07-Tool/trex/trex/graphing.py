@@ -181,7 +181,7 @@ def node_label_tbl(
             return row
 
         header = """<
-            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" color="transparent">""""
+            <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4" color="transparent">"""
         footer = "</TABLE>>"
         tbl = header
         for i, row in enumerate(rows):

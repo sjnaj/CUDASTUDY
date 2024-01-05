@@ -18,7 +18,7 @@
 import json
 import subprocess
 
-from parseTrtexecLog import parse_build_log, parse_profiling_log
+from parseTrtexecLog import  parse_profiling_log
 from trex import EnginePlan, layer_type_formatter, render_dot, to_dot
 
 onnxFile = "./model/model.onnx"
@@ -35,30 +35,32 @@ profileTimingJsonFile = "./model/profile.timing.json"
 # draw
 graphJsonFile = "./model/graph.json"
 
+
+#暂时只打印trt模型结构，不和onnx对比
 # build engine -----------------------------------------------------------------
-cmd_line = "trtexec --verbose --profilingVerbosity=detailed --buildOnly --workspace=4096 --onnx=%s --saveEngine=%s --timingCacheFile=%s" % \
-    (onnxFile,trtFile,buildTimingCacheFile)
-with open(buildLogfile, "w") as f:
-    log = subprocess.run(cmd_line.split(" "), check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
-    f.write(log.stdout)
+# cmd_line = "trtexec --verbose --profilingVerbosity=detailed --buildOnly --workspace=4096 --onnx=%s --saveEngine=%s --timingCacheFile=%s" % \
+#     (onnxFile,trtFile,buildTimingCacheFile)
+# with open(buildLogfile, "w") as f:
+#     log = subprocess.run(cmd_line.split(" "), check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+#     f.write(log.stdout)
 
-with open(buildMetadataJsonFile, "w") as f:
-    json.dump(parse_build_log(buildLogfile), f)
+# with open(buildMetadataJsonFile, "w") as f:
+#     json.dump(parse_build_log(buildLogfile), f)
 
-print("\nSucceeded building engine\n\t%s\n\t%s\n\t%s" % (buildLogfile, buildTimingCacheFile, buildMetadataJsonFile))
+# print("\nSucceeded building engine\n\t%s\n\t%s\n\t%s" % (buildLogfile, buildTimingCacheFile, buildMetadataJsonFile))
 
 # profile engine ---------------------------------------------------------------
-cmd_line = "trtexec --verbose --profilingVerbosity=detailed --noDataTransfers --useCudaGraph --separateProfileRun --useSpinWait --loadEngine=%s --exportProfile=%s --exportTimes=%s --exportLayerInfo=%s" % \
-    (trtFile, profileJsonFile, profileTimingJsonFile, graphJsonFile)
+# cmd_line = "trtexec --verbose --profilingVerbosity=detailed --noDataTransfers --useCudaGraph --separateProfileRun --useSpinWait --loadEngine=%s --exportProfile=%s --exportTimes=%s --exportLayerInfo=%s" % \
+#     (trtFile, profileJsonFile, profileTimingJsonFile, graphJsonFile)
+# print(cmd_line)
+# with open(profileLogFile, "w") as f:
+#     log = subprocess.run(cmd_line.split(" "), check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+#     f.write(log.stdout)
 
-with open(profileLogFile, "w") as f:
-    log = subprocess.run(cmd_line.split(" "), check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
-    f.write(log.stdout)
+# with open(profileMetadatadJsonFile, "w") as f:
+#     json.dump(parse_profiling_log(profileLogFile), f)
 
-with open(profileMetadatadJsonFile, "w") as f:
-    json.dump(parse_profiling_log(profileLogFile), f)
-
-print("\nSucceeded profiling engine\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s" % (profileLogFile, profileJsonFile, profileTimingJsonFile, graphJsonFile, profileMetadatadJsonFile))
+# print("\nSucceeded profiling engine\n\t%s\n\t%s\n\t%s\n\t%s\n\t%s" % (profileLogFile, profileJsonFile, profileTimingJsonFile, graphJsonFile, profileMetadatadJsonFile))
 
 # draw graph -------------------------------------------------------------------
 plan = EnginePlan(graphJsonFile)

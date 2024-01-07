@@ -1,0 +1,32 @@
+[I] RUNNING | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy surgeon sanitize --fold-constant yolov8n.onnx -o yolov8n_sanitized.onnx
+[I] Loading model: /home/fengsc/CUDASTUDY/Yolo_TensorRt/yolov8n.onnx
+[I] Original Model:
+    Name: torch_jit | ONNX Opset: 16
+    
+    ---- 1 Graph Input(s) ----
+    {images [dtype=float32, shape=(1, 3, 640, 640)]}
+    
+    ---- 1 Graph Output(s) ----
+    {output0 [dtype=float32, shape=(1, 76, 8400)]}
+    
+    ---- 143 Initializer(s) ----
+    
+    ---- 233 Node(s) ----
+    
+[I] Folding Constants | Pass 1
+[I]     Total Nodes | Original:   233, After Folding:   233 |     0 Nodes Folded
+[I] Saving ONNX model to: yolov8n_sanitized.onnx
+[I] New Model:
+    Name: torch_jit | ONNX Opset: 16
+    
+    ---- 1 Graph Input(s) ----
+    {images [dtype=float32, shape=(1, 3, 640, 640)]}
+    
+    ---- 1 Graph Output(s) ----
+    {output0 [dtype=float32, shape=(1, 76, 8400)]}
+    
+    ---- 143 Initializer(s) ----
+    
+    ---- 233 Node(s) ----
+    
+[I] PASSED | Runtime: 1.526s | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy surgeon sanitize --fold-constant yolov8n.onnx -o yolov8n_sanitized.onnx

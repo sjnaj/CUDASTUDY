@@ -75,7 +75,7 @@ tensor8, n = addNode(graph, "Reshape", scopeName, n, [tensorX, tensor7], None, "
 
 graph.inputs = [tensorX]
 graph.outputs = [tensor3, tensor8]
-
+    
 graph.cleanup().toposort()
 onnx.save(gs.export_onnx(graph), "modelA.onnx")
 print("Succeeded create %s" % "modelA.onnx")

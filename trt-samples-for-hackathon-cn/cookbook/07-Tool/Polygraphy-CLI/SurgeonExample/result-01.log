@@ -1,0 +1,36 @@
+[I] RUNNING | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy surgeon sanitize modelA.onnx --fold-constant -o modelA-FoldConstant.onnx
+[I] Loading model: /home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/07-Tool/Polygraphy-CLI/SurgeonExample/modelA.onnx
+[I] Original Model:
+    Name: onnx_graphsurgeon_graph | ONNX Opset: 11
+    
+    ---- 1 Graph Input(s) ----
+    {tensorX [dtype=float32, shape=(12, 2, 3, 4)]}
+    
+    ---- 2 Graph Output(s) ----
+    {A-V-2-Reshape [dtype=float32, shape=('Reshape_4_o0__d0',)],
+     A-V-7-Reshape [dtype=float32, shape=('Reshape_7_o0__d0', 'Reshape_7_o0__d1', 'Reshape_7_o0__d2')]}
+    
+    ---- 2 Initializer(s) ----
+    
+    ---- 8 Node(s) ----
+    
+[I] Folding Constants | Pass 1
+[I]     Total Nodes | Original:     8, After Folding:     2 |     6 Nodes Folded
+[I] Folding Constants | Pass 2
+[I]     Total Nodes | Original:     2, After Folding:     2 |     0 Nodes Folded
+[I] Saving ONNX model to: modelA-FoldConstant.onnx
+[I] New Model:
+    Name: onnx_graphsurgeon_graph | ONNX Opset: 11
+    
+    ---- 1 Graph Input(s) ----
+    {tensorX [dtype=float32, shape=(12, 2, 3, 4)]}
+    
+    ---- 2 Graph Output(s) ----
+    {A-V-2-Reshape [dtype=float32, shape=(288,)],
+     A-V-7-Reshape [dtype=float32, shape=(12, 2, 12)]}
+    
+    ---- 2 Initializer(s) ----
+    
+    ---- 2 Node(s) ----
+    
+[I] PASSED | Runtime: 1.662s | Command: /home/fengsc/anaconda3/envs/py37/bin/polygraphy surgeon sanitize modelA.onnx --fold-constant -o modelA-FoldConstant.onnx

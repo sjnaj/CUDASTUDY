@@ -4,12 +4,10 @@ pip cache purge
 sudo du -h xx | sort -h
 
 np.ascontiguousarray 函数将一个内存不连续存储的数组转换为内存连续存储的数组
-ONNX(angkesi)：open neural network exchange
+ONNX：open neural network exchange
 
 不支持9，改为8
 /home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnx_graphsurgeon/exporters/onnx_exporter.py:181:    model.ir_version=8
-
-/usr/local/cuda/bin/nvcc -g main.cpp yolo.cu infer.cu -G -UDEBUG -Xcompiler -fPIC -use_fast_math -o main -I /home/fengsc/cuda-samples-11.6/Common -I /home/fengsc/cuda-samples-11.6 -I /home/fengsc/CUDASTUDY -I /usr/local/cuda/include -L /usr/local/cuda/lib64 -I /home/fengsc/cuda-samples-11.6/parallelprogrammingbook/include -I /usr/local/include/opencv4 -I /usr/local/include -I /usr/local/lib -I /home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/include -I /usr/local/TensorRT-8.5.1.7/include -I /usr/include/x86_64-linux-gnu -I /usr/lib/x86_64-linux-gnu  "-lglut -lGLU -lGL" -l cudart -l cublas -l cudnn -l curand -l nvinfer -l nvinfer_plugin -l nvonnxparser -l opencv_core -l opencv_videoio -l opencv_highgui -l opencv_imgproc -l opencv_imgcodecs -l dl -l pthread -D_MWAITXINTRIN_H_INCLUDED -std c++14
 
 
 浮点模型 : 模型的权重和激活均为浮点类型
@@ -90,7 +88,6 @@ Timing Cache:为了减少构建器时间，TensorRT 创建了一个层时序缓�
 
 graph.cleanup()
 
-/home/fengsc/CUDASTUDY/trt-samples-for-hackathon-cn/cookbook/01-SimpleDemo/TensorRT8.5/main.py
 
 onnx模型建立  torch接口，onnx_graphsurgeon搭建
 
@@ -109,7 +106,7 @@ trt模型执行：  配置输入输出缓存（alloc，cpy）->createExecutionCo
 V2: replacement of enqueue, support explict batch. is deprecated now.
 V3: latest api, support data dependent shape, recommend to use now.
 
-NMS利用GPU优化：1，将模型输出传入gpu进行后处理  2，在模型输出上插入插件，实现端到端，免去后处理。
+NMS利用GPU优化：1，将模型输出传入gpu进行后处理  2，在模型输出上插入插件，实现端到端。
 
 fp16，int8，
 1, 3, 640, 640
@@ -120,3 +117,20 @@ trtexec --verbose --profilingVerbosity=detailed --noDataTransfers --useCudaGraph
 python trt.py -e /home/fengsc/CUDASTUDY/Yolo_TensorRt/TensorRT-For-YOLO-Series/yolov8n_int8.engine -i /home/fengsc/CUDASTUDY/Yolo_TensorRt/TensorRT-For-YOLO-Series/src/group.jpg -o /home/fengsc/CUDASTUDY/Yolo_TensorRt/TensorRT-For-YOLO-Series/src/res.jpg --end2end 
 
 自定义插件，生产者消费者
+
+onnx优化
+
+ polygraphy surgeon sanitize --fold-constant yolov8n.onnx -o yolov8n_sanitized.onnx >result-01.log
+ yolo导出的模型优化足够好，上述命令不能继续优化
+
+ onnxsim yolov8n.onnx yolov8n_sim.onnx，与上面命令作用类似，但也没有实际优化
+
+ onnx-graphsungeon（自由度最高）
+Function:
+  + Modify metadata/node / tensor / weight data of compute graph.
+  + Modify subgraph: Add / Delete / Replace / Isolate
+  + Optimize: constant folding / topological sorting / removing useless layers.
+
+graph.fold_constants()
+graph.fold_constants().cleanup()#清除被优化掉的孤立node
+

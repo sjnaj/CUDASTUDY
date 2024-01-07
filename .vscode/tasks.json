@@ -9,9 +9,9 @@
             "command": "/usr/local/cuda/bin/nvcc",
             "args": [
                 "-g",
-                // "${file}",
+                "${file}",
                 // "${fileDirname}/*.cu",
-                "${fileDirname}/*.cpp",
+                // "${fileDirname}/*.cpp",
                 "-G",
                 "-UDEBUG",  
                 "-Xcompiler",

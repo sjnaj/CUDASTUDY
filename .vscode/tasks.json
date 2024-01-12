@@ -26,7 +26,7 @@
                 "-I","/home/fengsc/CUDASTUDY",
                 "-I", "/usr/local/cuda/include",
                 "-L", "/usr/local/cuda/lib64",   
-                "-I","/home/fengsc/cuda-samples-11.6/parallelprogrammingbook/include",
+                "-I","/home/fengsc/CUDASTUDY/parallelprogrammingbook/include",
                 "-I","/usr/local/include/opencv4",
                 "-I" ,"/usr/local/include",
                 "-I","/usr/local/lib",

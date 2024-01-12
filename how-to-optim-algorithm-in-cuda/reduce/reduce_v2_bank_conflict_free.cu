@@ -14,6 +14,7 @@ __global__ void reduce_v2(float *g_idata,float *g_odata){
     sdata[tid] = g_idata[i];
     __syncthreads();
 
+// gap由大到小
     // do reduction in shared mem
     for(unsigned int s=blockDim.x/2; s>0; s >>= 1) {
         if (tid < s){

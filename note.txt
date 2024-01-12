@@ -134,3 +134,18 @@ Function:
 graph.fold_constants()
 graph.fold_constants().cleanup()#清除被优化掉的孤立node
 
+一个SM上执行一个或多个线程块
+一个warp在SM上以SIMD方式锁步执行
+对于小于等于32个线程，同步是多余的
+extern，shared：块共享，动态分配和静态分配
+shlf_down_async 执行tree-reduction，warp内跨线程访问，mask：32位掩码
+warp level Primitives:https://zhuanlan.zhihu.com/p/572820783
+
+reduce：__shfl_down_sync规约（操作寄存器，无视bank冲突），每个线程首先存储多个位置的和，增加固定任务，来实现线程之间的负载均衡
+  int num_blocks = std::max<int>(1, std::min<int>((n + BLOCK_SIZE - 1) / BLOCK_SIZE,
+                                                                sm_count * tpm / BLOCK_SIZE));
+PyTorch Block Reduce：
+
+
+shared_mem在内存中以32*4B的宽度二维存放，每一个4B宽带的列代表一个bank
+

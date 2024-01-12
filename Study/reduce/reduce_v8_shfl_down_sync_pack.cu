@@ -14,26 +14,26 @@ constexpr int BLOCK_SIZE = 256;
 constexpr int kBlockSize = 256;
 constexpr int kNumWaves = 1;
 
-int64_t GetNumBlocks(int64_t n) {
-  int dev;
-  {
-    cudaError_t err = cudaGetDevice(&dev);
-    if (err != cudaSuccess) { return err; }
+  int64_t GetNumBlocks(int64_t n) {
+    int dev;
+    {
+      cudaError_t err = cudaGetDevice(&dev);
+      if (err != cudaSuccess) { return err; }
+    }
+    int sm_count;
+    {
+      cudaError_t err = cudaDeviceGetAttribute(&sm_count, cudaDevAttrMultiProcessorCount, dev);
+      if (err != cudaSuccess) { return err; }
+    }
+    int tpm;
+    {
+      cudaError_t err = cudaDeviceGetAttribute(&tpm, cudaDevAttrMaxThreadsPerMultiProcessor, dev);
+      if (err != cudaSuccess) { return err; }
+    }
+    int64_t num_blocks = std::max<int64_t>(1, std::min<int64_t>((n + kBlockSize - 1) / kBlockSize,
+                                                    sm_count * tpm / kBlockSize * kNumWaves));
+    return num_blocks;
   }
-  int sm_count;
-  {
-    cudaError_t err = cudaDeviceGetAttribute(&sm_count, cudaDevAttrMultiProcessorCount, dev);
-    if (err != cudaSuccess) { return err; }
-  }
-  int tpm;
-  {
-    cudaError_t err = cudaDeviceGetAttribute(&tpm, cudaDevAttrMaxThreadsPerMultiProcessor, dev);
-    if (err != cudaSuccess) { return err; }
-  }
-  int64_t num_blocks = std::max<int64_t>(1, std::min<int64_t>((n + kBlockSize - 1) / kBlockSize,
-                                                   sm_count * tpm / kBlockSize * kNumWaves));
-  return num_blocks;
-}
 
 template<typename T, int pack_size>
 struct alignas(sizeof(T) * pack_size) Packed {
@@ -88,6 +88,7 @@ __global__ void reduce_v8(float *g_idata,float *g_odata, unsigned int n){
         Packed<float, PackSize> g_idata_load = pack_ptr[linear_index];
         sum_pack += g_idata_load; 
     }
+    
     float PackReduceVal = PackReduce<float, PackSize>(sum_pack);
     // Shared mem for partial sums (one per warp in the block)
     static __shared__ float warpLevelSums[kWarpSize]; 

@@ -47,8 +47,19 @@ __global__ void myReduce(float *g_idata, float *g_odata, unsigned int n)
         sum += g_idata[i + gap * blockDim.x];
     }
     __shared__ float warpLevelSums[WARP_SIZE];
-    int const laneId = threadIdx.x / warpSize;
+    int const laneId = threadIdx.x % warpSize;
     int const warpId = threadIdx.x / warpSize;
+     float sum = warpReduceSum<float>(PackReduceVal);
+    __syncthreads();
+
+    if(laneId == 0 )warpLevelSums[warpId] = sum;
+    __syncthreads();
+    // read from shared memory only if that warp existed
+    sum = (threadIdx.x < blockDim.x / kWarpSize) ? warpLevelSums[laneId] : 0;
+    // Final reduce using first warp
+    if (warpId == 0) sum = warpReduceSum<float>(sum); 
+    // write result for this block to global mem
+    if (threadIdx.x == 0) g_odata[blockIdx.x] = sum;
 }
 
 int main()
@@ -56,4 +67,5 @@ int main()
     const int block_num = getNumBlocks(N);
     const int NUM_PER_BLOCK = N / block_num;
     const int NUM_PER_THREAD = NUM_PER_BLOCK / BLOCK_SIZE;
+
 }

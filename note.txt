@@ -9,7 +9,6 @@ ONNX：open neural network exchange
 不支持9，改为8
 /home/fengsc/anaconda3/envs/py37/lib/python3.7/site-packages/onnx_graphsurgeon/exporters/onnx_exporter.py:181:    model.ir_version=8
 
-
 浮点模型 : 模型的权重和激活均为浮点类型
 
 量化模型 : 均为量化类型
@@ -138,7 +137,11 @@ graph.fold_constants().cleanup()#清除被优化掉的孤立node
 一个warp在SM上以SIMD方式锁步执行
 对于小于等于32个线程，同步是多余的
 extern，shared：块共享，动态分配和静态分配
-shlf_down_async 执行tree-reduction，warp内跨线程访问，mask：32位掩码
+shlf_down_sync 执行tree-reduction，warp内跨线程访问，mask：32位掩码，结果在0号lane上
+__shfl_xor_sync:当前线程的lane_id值与offset做xor，然后把结果处的val变量值取来。
+执行butterfly reduction（蝶形规约），求和或求最值，结果在所有lane上，适合需要广播的情形。
+
+warp_reduce,block_reduce(warp->shared->warp)
 warp level Primitives:https://zhuanlan.zhihu.com/p/572820783
 
 reduce：__shfl_down_sync规约（操作寄存器，无视bank冲突），每个线程首先存储多个位置的和，增加固定任务，来实现线程之间的负载均衡
@@ -146,6 +149,17 @@ reduce：__shfl_down_sync规约（操作寄存器，无视bank冲突），每个
                                                                 sm_count * tpm / BLOCK_SIZE));
 PyTorch Block Reduce：
 
-
 shared_mem在内存中以32*4B的宽度二维存放，每一个4B宽带的列代表一个bank
 
+所有SM共享L2 Cache，拥有私有的L1 Cache，私有的Shared Memory和私有的寄存器堆。
+
+一个Block能且只能在一个SM中运行，一个SM可以同时运行多个Block；在SM中，一个Block的线程按照32的粒度分组，每32个线程称为一个Warp，
+Warp是SM调度运行的最小单位（(新架构可以并行4个warp)，每个时钟周期，SM Block都会尝试选择一个可以调度的Warp发射执行
+
+Grid在全局内存Global Memory中共享数据，Block在共享内存Shared Memory中共享数据；SM中的寄存器是线程私有
+
+矩阵分块（带），float4，LDG.128和STG.128
+bank冲突：shared_mem。读取矩阵A时在shared_mem装置（因为一次读一个长为k（窄带宽度）的列向量）
+双缓冲预取。本次运算和下次传输并行先load到本地寄存器，计算完后从寄存器写回shared_mem，load和计算不存在数据依赖，可以并行）
+
+置信度排序，iou去重。

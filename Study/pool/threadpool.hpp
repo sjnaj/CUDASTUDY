@@ -1,5 +1,4 @@
-#ifndef THREADPOOL_HPP
-#define THREADPOOL_HPP
+#pragma once
 
 #include <cstdint>
 #include <future>
@@ -8,146 +7,154 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
-#include <functional> 
+#include <functional>
+#include <atomic>
 class ThreadPool
 {
+
 private:
+    // storage for threads and tasks
     std::vector<std::thread> threads;
     std::queue<std::function<void(void)>> tasks;
 
+    // primitives for signaling
     std::mutex mutex;
-    std::condition_variable cv,cv_wait;
+    std::condition_variable cv;
 
-    bool stop_pool;
-    size_t active_threads;
-    const size_t capacity;
+    // the state of the thread, pool
+    std::atomic<bool> stop_pool;
+    std::atomic<uint32_t> active_threads;
+    const uint32_t capacity;
 
-    template <typename Func, typename... Args, typename Rtrn = typename std::result_of<Func(Args...)>::type>
-    auto make_task(Func &&func, Args &&...args) -> std::packaged_task<Rtrn(void)>
+    // custom task factory
+    template <
+        typename Func,
+        typename... Args,
+        typename Rtrn = typename std::result_of<Func(Args...)>::type>
+    auto make_task(
+        Func &&func,
+        Args &&...args) -> std::packaged_task<Rtrn(void)>
     {
-        auto aux = std::bind(std::forward<Func>(func), std::forward<Args>(args)...);
+
+        auto aux = std::bind(std::forward<Func>(func),
+                             std::forward<Args>(args)...);
+
         return std::packaged_task<Rtrn(void)>(aux);
     }
 
-    void before_task_hook()
-    {
-        active_threads++;
-    }
-    void after_task_hook()
-    {
-        active_threads--;
-        if (active_threads == 0 && tasks.empty())
-        {
-            stop_pool = true;
-            cv_wait.notify_one();
-        }
-    }
-
 public:
-    ThreadPool(size_t capacity_) : stop_pool(false), active_threads(0), capacity(capacity_)
-    {
+    ThreadPool(
+        uint64_t capacity_) : stop_pool(false),  // pool is running
+                              active_threads(0), // no work to be done
+                              capacity(capacity_)
+    { // remember size
+
+        // this function is executed by the threads
         auto wait_loop = [this]() -> void
         {
+            // wait forever
             while (true)
             {
-                std::function<void(void)> task;
-                {
-                    std::unique_lock<std::mutex> lk(mutex);
 
+                // this is a placeholder task
+                std::function<void(void)> task;
+
+                { // lock this section for waiting
+                    std::unique_lock<std::mutex>
+                        unique_lock(mutex);
+
+                    // actions must be performed on
+                    // wake-up if (i) the thread pool
+                    // has been stopped or (ii) there
+                    // are still tasks to be processed
                     auto predicate = [this]() -> bool
                     {
-                        return (stop_pool || !(tasks.empty()));
+                        return (stop_pool) ||
+                               !(tasks.empty());
                     };
-                    cv.wait(lk, predicate);
 
+                    // wait to be waken up on
+                    // aforementioned conditions
+                    cv.wait(unique_lock, predicate);
+
+                    // exit if thread pool stopped
+                    // and no tasks to be performed
                     if (stop_pool && tasks.empty())
-                    {
                         return;
-                    }
+
+                    // else extract task from queue
                     task = std::move(tasks.front());
                     tasks.pop();
-                    before_task_hook();
-                }
+                } // here we release the lock
+                ++active_threads;
+                // execute the task in parallel
                 task();
-                {
-                    std::lock_guard<std::mutex> lk(mutex);
-                    after_task_hook();
-                }
+                --active_threads;
             }
         };
-        for (size_t id = 0; id < capacity; id++)
-        {
+
+        // initially spawn capacity many threads
+        for (uint64_t id = 0; id < capacity; id++)
             threads.emplace_back(wait_loop);
-        }
     }
 
     ~ThreadPool()
     {
-        {
-            std::lock_guard<std::mutex> lk(mutex);
-            stop_pool = true;
-        }
-        cv.notify_all();
-        for (auto &thread : threads)
-        {
-            thread.join();
-        }
+
+        stop();
     }
-
-    template <typename Func, typename... Args, typename Rtrn = typename std::result_of<Func(Args...)>::type>
-    auto enqueue(Func &&func, Args &&...args) -> std::future<Rtrn>
+    void stop()
     {
-        auto task = make_task(func, args...);
-        auto future = task.get_future();
-        auto task_ptr = std::make_shared<decltype(task)>(std::move(task));
+        stop_pool = true;
+        // signal all threads
+        cv.notify_all();
 
-        {
-            std::lock_guard<std::mutex> lk(mutex);
-            if (stop_pool)
-            {
-                throw std::runtime_error("enqueue on stopped ThreadPool");
-            }
-            auto payload = [task_ptr]() -> void
-            {
-                (*task_ptr)();
-                // task_ptr->operator()();
-            };
-            tasks.emplace(payload);
-        }
-        cv.notify_one();
-        return future;
+        // finally join all threads
+        for (auto &thread : threads)
+            if (thread.joinable())
+                thread.join();
     }
 
     template <
         typename Func,
-        typename... Args>
-    void spawn(
+        typename... Args,
+        typename Pair = Func(Args...),
+        typename Rtrn = typename std::result_of<Pair>::type>
+    auto enqueue(
         Func &&func,
-        Args &&...args)
+        Args &&...args) -> std::future<Rtrn>
     {
 
-        // enqueue if idling threads
-        if (active_threads < capacity)
-            enqueue(func, args...);
-        // else process sequential
-        else
-            func(args...);
-    }
+        // create the task, get the future
+        // and wrap task in a shared pointer
+        auto task = make_task(func, args...);
+        auto future = task.get_future();
+        auto task_ptr = std::make_shared<decltype(task)>(std::move(task));
 
-    void wait_and_stop()
-    {
+        { // lock the scope
+            std::lock_guard<std::mutex>
+                lock_guard(mutex);
 
-        // wait for pool being set to stop
-        std::unique_lock<std::mutex>
-            unique_lock(mutex);
+            // you cannot reuse pool after being stopped
+            if (stop_pool)
+                throw std::runtime_error(
+                    "enqueue on stopped ThreadPool");
 
-        auto predicate = [&]() -> bool
-        {
-            return stop_pool;
-        };
+            // wrap the task in a generic void
+            // function void -> void
+            auto payload = [task_ptr]() -> void
+            {
+                // basically call task()
+                task_ptr->operator()();
+            };
 
-        cv_wait.wait(unique_lock, predicate);
+            // append the task to the queue
+            tasks.emplace(payload);
+        }
+
+        // tell one thread to wake-up
+        cv.notify_one();
+
+        return future;
     }
 };
-
-#endif

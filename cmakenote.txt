@@ -1,0 +1,37 @@
+跨平台cmake命令：
+cmake -B  build ,创建build文件夹并cmake
+cmake -B build -G Ninja:切换后端,更快(vscode cmake插件默认)
+cmake --build build --parallel 4,等价于cd build,make -j4
+sudo cmake --build build --target install ,等价于 cd build，sudo make install
+ cmake --build build --target clean
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+
+add_executable(main)
+file(GLOB sources CONFIGURE_DEPENDS *.cpp *.h)；遍历添加所有匹配文件为源文件，CONFIGURE_DEPENDS即时更新
+target_sources(main public ${source})
+
+遍历添加文件夹下的.cpp,.h等
+aux_source_directory(. source)
+aux_source_directory(mylib source)
+
+或者：file(GLOB_RECURSE sources CONFIGURE_DEPENDS *.cpp *.h),递归搜索
+
+add_library中用OBJECT代替STATIC，生成的对象库更加跨平台
+
+PRIVATE (私有): 当目标自身需要此链接库时使用。
+PUBLIC (公共): 当目标自身或其他目标链接了这个目标时使用。
+INTERFACE (接口): 当目标自身不需要此链接库，但其他目标链接了这个目标时使用。（中转）
+
+动态库链接静态库报错时，为静态库生成PIC（位置无关代码）
+
+set_target_properties()为目标设置局部属性
+
+链接的组件会把include和lib path 传播给项目，不用额外设置（通过生成链接库时的PUBLIC）
+
+find_package在系统路径下查找xxconfig.cmake,里面包含了xxtarget.cmake
+限制components只查找需要的包
+不设置REQUIRED，找不到时不会报错
+
+删除CMakeCache.txt就会重新编译
+ccmake -B build   可视化编辑CMakeCache.txt

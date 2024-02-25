@@ -9,7 +9,8 @@
 #include <mutex>
 #include <atomic>
 #include <condition_variable>
-
+#include <functional>
+#include<iostream>
 class ThreadPool {
 
 private:
@@ -63,7 +64,6 @@ public:
         stop_pool(false),     // pool is running
         active_threads(0),    // no work to be done
         capacity(capacity_) { // remember size
-        
         // this function is executed by the threads
         auto wait_loop = [this] ( ) -> void {
 

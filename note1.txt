@@ -1,0 +1,17 @@
+n = n / 4 * 4;告诉编译器n是4的倍数
+a = (int *)__builtin_assume_aligned(a, 16);告诉编译器a是16字节对齐的（std::assume_aligned<16>(a)c++20)
+__restrict告诉编译器传入的指针不重合，也可以利用#pragma omp simd来启用simd优化或者使用gcc的#pragma GCC ivdep忽略指针别名
+后两种适用于vector
+rust语法层面禁用指针重名
+
+mov(u/v)ssSIMD优化失败，movps优化成功
+
+AOS：结构体数组存储，可能需要加padding或align对齐
+SOA：数组结构体，紧凑存储，容易向量化
+
+gcc --ffast-math 优化浮点数运算（除法优化为乘法），但要保证数据合法（例如没有NAN，INF，sqrt(x),x>=0）
+
+c库函数不支持重载，尽量用std里的c库函数
+
+内核更新找不到cuda：解决：
+export LD_LIBRARY_PATH=/mnt/c/Windows/System32/lxss/lib:$LD_LIBRARY_PATH

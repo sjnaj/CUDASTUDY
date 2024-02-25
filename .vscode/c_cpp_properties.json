@@ -15,7 +15,7 @@
             "defines": ["__CUDACC__"],
             "compilerPath": "/usr/local/cuda/bin/nvcc",
             "cStandard": "gnu17",
-            "cppStandard": "c++14",
+            "cppStandard": "c++17",
             "intelliSenseMode": "linux-gcc-x64",
             "configurationProvider": "ms-vscode.makefile-tools"
         }

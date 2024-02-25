@@ -1,11 +1,20 @@
-#include "threadpool.hpp"
+#include "/home/fengsc/CUDASTUDY/Study/pool/threadpool.hpp"
 #include <iostream>
-ThreadPool tp(10);
+std::future<int> fs[10];
+
 int main()
 {
+    ThreadPool tp(10);
+
     auto func = [](int i)
-    { std::cout << i; };
+    {
+        std::cout << i;
+        return i;
+    };
     for (int i = 0; i < 10; i++)
-        tp.spawn(func, i);
-    tp.wait_and_stop();
+        fs[i] = tp.enqueue(func, i);
+    for(int i=0;i<10;i++){
+        std::cout<<fs[i].get();
+    }
+    tp.stop();
 }
